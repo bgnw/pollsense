@@ -1,0 +1,245 @@
+/* Font import */
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap);
+
+/* Global styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #b7bec5;
+    background-image: url(../assets/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-size: 12pt;
+    height: 100%;
+}
+
+/* Navigation bar and button styles */
+nav {
+    align-items: center;
+    background-color: #24252a;
+    display: flex;
+    float: left;
+    padding: 30px 10%;
+    position: fixed;
+    top: 0;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 9;
+}
+
+nav+.content {
+    margin: 3%;
+    padding-top: 110px;
+    text-align: justify;
+}
+
+.logo {
+    justify-content: flex-start;
+    margin-right: auto;
+    padding: 5px;
+}
+
+.action, input[type=submit] {
+    background-color: #5a86f2;
+    border: none;
+    border-radius: 20px;
+    padding: 11px 20px;
+    font-size: 12pt;
+    cursor: pointer;
+    display: inline;
+}
+
+.secondary {
+    background-color: #596bf2;
+}
+
+.navbar-links {
+    display: flex;
+    list-style: none;
+}
+
+.action, a, input[type="submit"]{
+    color: #edf0f1;
+    text-decoration: none;
+}
+
+.navbar-links li {
+    padding: 0 20px;
+}
+
+.current {
+    font-weight: 700;
+}
+
+.vl {
+    border-left: 1px solid grey;
+    height: 20px;
+    margin: 0 10px;
+}
+
+/* Main content styles */
+.content h1 ,.content h2, .content h3 {
+    line-height: 1.5;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Action / form card styles */
+.card-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    clear: both;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px #999;
+    display: inline-block;
+    margin: 20px;
+    overflow: hidden;
+    padding: 0 20px 20px;
+    position: relative;
+    text-align: center;
+    vertical-align: top;
+    align-content: center !important;
+    width: 40%;
+}
+
+/* This handles all the css for the form*/
+.card form, .card .infoMessage{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px 0 0;
+}
+
+.card:not(.welcome-card) .action, input[type="submit"]{
+    width: 100%;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+#manage input[type="submit"]{
+    width: 32%;
+}
+input[name="poll_manage_edit"]{
+    background-color: #596bf2;
+}
+input[name="poll_manage_delete"]{
+    background-color: #735aff;
+}
+
+.welcome-card .action{
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+}
+
+input[type="text"], input[type="password"] {
+    border-radius: 20px;
+    border-style: none;
+    box-shadow: 3px 3px 10px #ddd;
+    font-size: 14px;
+    height: 10px;
+    margin: 5px 0 !important;
+    padding: 17px !important;
+    width: 100%;
+}
+
+input[type="radio"]{
+    margin-top: 12px;
+}
+
+label[for="mult_choice"], input[name="mult_choice"]{
+    margin: 20px 0;
+}
+
+.welcome-card {
+    width: 18%;
+}
+
+.welcome-card p {
+    vertical-align: middle;
+    padding-bottom: 45px;
+}
+
+.card h3 {
+    padding-bottom: 10px;
+}
+
+.hidden{
+    display: none;
+}
+
+input[name="poll_vote"]{
+    text-align: left;
+}
+
+.card > input[name="user_register"],
+.card > input[name="user_login"]{
+    height: 400px;
+}
+
+:focus {
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    box-shadow: 3px 3px 10px #aaa;
+    background-color: #f7f7f7;
+}
+
+form table{
+    width: 100%;
+}
+
+form table td{
+    padding: 5px;
+}
+
+form table td:nth-child(2){
+    text-align: left;
+}
+
+form table td:nth-child(3){
+    text-align: right;
+}
+
+/* Footer styles */
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #bbb;
+    background-color: #24252a;
+    font-size: 9pt;
+    height: 30px;
+    padding:8px;
+    text-align: right;
+}
+
+/* Responsive/mobile design */
+@media only screen and (max-width:950px) {
+    .content,nav,footer {
+        filter: opacity(0%)
+    }
+    body{
+        background-image: url(../assets/mobilebg.png);
+        background-repeat: repeat;
+    }
+
+
+}
