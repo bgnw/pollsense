@@ -7,7 +7,8 @@ CREATE TABLE users (
     forename VARCHAR(64) NOT NULL,
     surname VARCHAR(64) NOT NULL,
     username VARCHAR(64) NOT NULL UNIQUE PRIMARY KEY,
-    password VARCHAR(64) NOT NULL
+    password VARCHAR(64) NOT NULL,
+    admin BOOLEAN DEFAULT 0 NOT NULL
 );
 
 CREATE TABLE polls (
@@ -27,10 +28,11 @@ CREATE TABLE options (
     FOREIGN KEY (poll_id) REFERENCES polls(poll_id)
 );
 
-INSERT INTO users (forename, surname, username, password) VALUES
-("Alice", "Adams", "alice.adams", "7ktyDbyyAwrSwXVE"),
-("Bob", "Bennett", "bob.bennett", "F863tuThRcGtRx2h"),
-("Charlie", "Cook", "charlie.cook", "qaYWKVMWF2bswjeB");
+INSERT INTO users (forename, surname, username, password, admin) VALUES
+("Admin", "User", "admin", "$B8b^BKRSJFn*$H-", 1),
+("Alice", "Adams", "alice.adams", "pshg3yb78S3!R#!2", 0),
+("Bob", "Bennett", "bob.bennett", "afZ9St2$!$Y*Su-W", 0),
+("Charlie", "Cook", "charlie.cook", "WJmey5h=&8c&a#R^", 0);
 
 INSERT INTO polls (title, mult_choice, username) VALUES
 ("Favourite day?", 0, "bob.bennett"),
@@ -46,6 +48,7 @@ INSERT INTO options (poll_id, option_no, option_text) VALUES
 (1, 5, "Friday"),
 (1, 6, "Saturday"),
 (1, 7, "Sunday"),
+
 (2, 1, "Instagram"),
 (2, 2, "Snapchat"),
 (2, 3, "Twitter"),
@@ -55,6 +58,7 @@ INSERT INTO options (poll_id, option_no, option_text) VALUES
 (3, 3, "Rock"),
 (3, 4, "Classical"),
 (3, 5, "Country"),
+
 (4, 1, "Spring"),
 (4, 2, "Summer"),
 (4, 3, "Autumn"),

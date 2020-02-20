@@ -47,16 +47,20 @@
                 <th>Username</th>
                 <th>Password</th>
                 <tr>
+                    <td>admin</td>
+                    <td style="font-family:monospace">$B8b^BKRSJFn*$H-</td>
+                </tr>
+                <tr>
                     <td>alice.adams</td>
-                    <td>tomato</td>
+                    <td style="font-family:monospace">pshg3yb78S3!R#!2</td>
                 </tr>
                 <tr>
                     <td>bob.bennett</td>
-                    <td>potato</td>
+                    <td style="font-family:monospace">afZ9St2$!$Y*Su-W</td>
                 </tr>
                 <tr>
                     <td>charlie.cook</td>
-                    <td>pizza</td>
+                    <td style="font-family:monospace">WJmey5h=&8c&a#R^</td>
                 </tr>
             </table>
             </div>
