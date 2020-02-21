@@ -80,7 +80,7 @@ try {
         throw new Exception();
     }
 } catch (Exception $e) {
-    // header("location: ../pages/info.php?error=poll_edit");
+    // header("location: ../pages/info?error=poll_edit");
 }
 ?>
 

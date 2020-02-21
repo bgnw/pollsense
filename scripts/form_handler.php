@@ -7,7 +7,7 @@
 include "incl_db_handler.php";
 session_start();
 
-// Checks if the sent form is the "Create a Poll" form (from create.php).
+// Checks if the sent form is the "Create a Poll" form (from create).
 if (isset($_POST["poll_create_submit"])){
     // Unpack the Title field (escaping, to prevent SQL injection) and store it
     // in the $title variable use in the database INSERT query.
@@ -33,7 +33,7 @@ if (isset($_POST["poll_create_submit"])){
         if ($dbUsernameCheck_RowsReturned === 1) {
             $username = "\"$username\"";
         } else {
-            header("location: ../pages/info.php?error=poll_create--invalid_username");
+            header("location: ../pages/info?error=poll_create--invalid_username");
         }
     }
 
@@ -49,7 +49,7 @@ if (isset($_POST["poll_create_submit"])){
     // directing users to an error page if there was an error, and continuing
     // with execution if not.
     if (mysqli_error($dbConn)){
-        header("location: ../pages/info.php?error=poll_create");
+        header("location: ../pages/info?error=poll_create");
     } else {
         // If the query executed successfully, the newly created poll_id is
         // retrieved for use in the INSERT query for the options table.
@@ -78,7 +78,7 @@ if (isset($_POST["poll_create_submit"])){
         }
 
         if ($malformed){
-            header("location: ../pages/info.php?error=poll_create--malformed");
+            header("location: ../pages/info?error=poll_create--malformed");
         } else {
             $i = 0;
             foreach($options as $option){
@@ -101,15 +101,15 @@ if (isset($_POST["poll_create_submit"])){
             // Checking for any returned errors from executing the above query, and
             // directing users to a success / error page accordingly.
             if (mysqli_error($dbConn)){
-                header("location: ../pages/info.php?error=poll_create");
+                header("location: ../pages/info?error=poll_create");
             } else {
-                header("location: ../pages/info.php?success=poll_create&poll_id=$poll_id");
+                header("location: ../pages/info?success=poll_create&poll_id=$poll_id");
             }
         }
     }
 }
 
-// Checks if the sent form is the "New Users" form (from signup_login.php).
+// Checks if the sent form is the "New Users" form (from register_login).
 else if (isset($_POST["user_register_submit"])){
     // Unpack all form data, escaping to prevent SQL injection.
     $forename = mysqli_real_escape_string($dbConn, $_POST["forename"]);
@@ -130,16 +130,16 @@ else if (isset($_POST["user_register_submit"])){
         // If there was an error, checking if the error was that there is
         // already a user account with the provided username.
         if (strpos(mysqli_error($dbConn),"Duplicate entry") !== false){
-            header("location: ../pages/info.php?error=user_register--username_exists&username=$username");
+            header("location: ../pages/info?error=user_register--username_exists&username=$username");
         } else {
-            header("location: ../pages/info.php?error=user_register");
+            header("location: ../pages/info?error=user_register");
         }
     } else {
-        header("location: ../pages/info.php?success=user_register&username=$username");
+        header("location: ../pages/info?success=user_register&username=$username");
     }
 }
 
-// Checks if the sent form is the "Existing Users" form (from signup_login.php).
+// Checks if the sent form is the "Existing Users" form (from register_login).
 else if (isset($_POST["user_login_submit"])){
     // Unpack all form data, escaping to prevent SQL injection.
     $username = mysqli_real_escape_string($dbConn, $_POST["username"]);
@@ -155,14 +155,14 @@ else if (isset($_POST["user_login_submit"])){
     // Checking for any returned errors from executing the above query, and
     // directing users to success / error pages accordingly.
     if (mysqli_error($dbConn)) {
-        header("location: ../pages/info.php?error=user_login--db_error");
+        header("location: ../pages/info?error=user_login--db_error");
     } else if ((mysqli_num_rows($dbqResult)) !== 1) {
-        header("location: ../pages/info.php?error=user_login--invalid_credentials");
+        // header("location: ../pages/info?error=user_login--invalid_credentials");
     } else {
         $dbForenameQuery = "SELECT forename FROM users WHERE username = \"$username\"";
         $dbqForenameResult = mysqli_query($dbConn, $dbForenameQuery);
         if (mysqli_error($dbConn)) {
-            header("location: ../pages/info.php?error=user_login--db_error");
+            header("location: ../pages/info?error=user_login--db_error");
         } else {
             $forename = (mysqli_fetch_assoc($dbqForenameResult))["forename"];
             $_SESSION["forename"] = $forename;
@@ -182,21 +182,21 @@ else if (isset($_POST["poll_vote_submit"])){
     mysqli_query($dbConn, $dbQuery);
 
     if ((mysqli_error($dbConn)) || (mysqli_affected_rows($dbConn) != 1)) {
-        header("location: ../pages/info.php?error=poll_vote--db_error&poll_id=$poll_id");
+        header("location: ../pages/info?error=poll_vote--db_error&poll_id=$poll_id");
     } else {
-        header("location: ../pages/info.php?success=poll_vote&poll_id=$poll_id");
+        header("location: ../pages/info?success=poll_vote&poll_id=$poll_id");
     }
 }
 
 else if (isset($_POST["poll_manage_view"])){
     $poll_id = $_POST["radio_poll_manage"];
-    header("location: ../pages/vote.php?poll_id=$poll_id");
+    header("location: ../pages/vote?poll_id=$poll_id");
 
 }
 
 else if (isset($_POST["poll_manage_edit"])){
     $poll_id = $_POST["radio_poll_manage"];
-    header("location: ../pages/edit.php?poll_id=$poll_id");
+    header("location: ../pages/edit?poll_id=$poll_id");
 
 }
 
@@ -205,10 +205,10 @@ else if (isset($_POST["poll_manage_delete"])){
     // TODO: db query to delete poll
     if (mysqli_error($dbConn)) {
         // TODO: create related info page
-        header("location: ../pages/info.php?error=poll_manage--delete");
+        header("location: ../pages/info?error=poll_manage--delete");
     } else {
         // TODO: create related info page
-        header("location: ../pages/info.php?success=poll_manage--delete");
+        header("location: ../pages/info?success=poll_manage--delete");
     }
 }
 
@@ -221,14 +221,14 @@ else if (isset($_POST["user_change_password_submit"])){
         if (mysqli_error($dbConn)) {
             // TODO: create related info page
             echo mysqli_error($dbConn);
-            header("location: ../pages/info.php?error=user_change_password");
+            header("location: ../pages/info?error=user_change_password");
         } else {
             // TODO: create related info page
             session_unset();
             session_destroy();
-            header("location: ../pages/info.php?success=user_change_password");
+            header("location: ../pages/info?success=user_change_password");
         }
     } else {
-        header("location: ../pages/info.php?error=user_change_password");
+        header("location: ../pages/info?error=user_change_password");
     }
 }

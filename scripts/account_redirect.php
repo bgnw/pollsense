@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["username"])){
-    header("location: ../pages/logged_in_menu.php");
+    header("location: ../pages/logged_in_menu");
 } else {
-    header("location: ../pages/signup_login.php");
+    header("location: ../pages/register_login");
 }

@@ -38,7 +38,7 @@
                                 break;
                             case "poll_vote":
                                 $message = "We couldn't find anything that matched that Poll ID, sorry.";
-                                $linkTo = "join.php";
+                                $linkTo = "join";
                                 break;
                             case "manage":
                                 $message = "We couldn't load your poll management page, sorry.";
@@ -46,7 +46,7 @@
                                 break;
                             case "manage--no_polls":
                                 $message = "You don't have any polls connected to your account.<br>Try creating one now!";
-                                $linkTo = "create.php";
+                                $linkTo = "create";
                                 $buttonLabel = "Create a poll";
                                 break;
                             case "user_login--db_error":
@@ -59,20 +59,20 @@
                                 break;
                             case "poll_create":
                                 $message = "Something went wrong whilst creating your poll, sorry.";
-                                $linkTo = "create.php";
+                                $linkTo = "create";
                                 break;
                             case "poll_create--invalid_username":
                                 $message = "The username you provided is not valid.<br>Please use another username, or leave the field blank.";
-                                $linkTo = "create.php";
+                                $linkTo = "create";
                                 break;
                             case "poll_create--malformed":
                                 $message = "It looks like you missed out an option field in the middle of other options.";
-                                $linkTo = "create.php";
+                                $linkTo = "create";
                                 break;
                             case "poll_delete":
                                 $poll_id = $_GET["poll_id"];
                                 $message = "We couldn't delete your poll with ID: $poll_id at this time. Sorry.";
-                                $linkTo = "manage.php";
+                                $linkTo = "manage";
                                 break;
                             case "poll_vote":
                                 $message = "We couldn't record your poll_vote at this time, sorry.";
@@ -81,11 +81,11 @@
                                 $poll_id = $_GET["poll_id"];
                                 $message = "We couldn't record your poll_vote at this time, sorry.";
                                 $buttonLabel = "View the poll";
-                                $linkTo = "vote.php?poll_id=$poll_id";
+                                $linkTo = "vote?poll_id=$poll_id";
                                 break;
                             case "user_change_password":
                                 $message = "Something went wrong whilst changing your password.<br>Your password has <b>not</b> been changed!";
-                                $linkTo = "change_password.php";
+                                $linkTo = "change_password";
                                 break;
                         }
 
@@ -104,19 +104,19 @@
                             case "poll_create":
                                 $poll_id = $_GET["poll_id"];
                                 $message = "Your poll was successfully created!<br>The Poll ID is: <b>$poll_id</b>.<br>Share this ID with others to get their opinions!";
-                                $linkTo = "vote.php?poll_id=$poll_id";
+                                $linkTo = "vote?poll_id=$poll_id";
                                 $buttonLabel = "View this poll";
                                 break;
                             case "poll_delete":
                                 $poll_id = $_GET["poll_id"];
                                 $message = "Your poll with ID: $poll_id has been successfully deleted.";
-                                $linkTo = "manage.php";
+                                $linkTo = "manage";
                                 break;
                             case "poll_vote":
                                 $poll_id = $_GET["poll_id"];
                                 $message = "Thank you for voting!<br>Your vote has been successfully recorded.";
                                 $buttonLabel = "View the poll";
-                                $linkTo = "vote.php?poll_id=$poll_id";
+                                $linkTo = "vote?poll_id=$poll_id";
                                 break;
                             case "user_change_password":
                                 $message = "Your account password has been successfully changed.<br>You have been logged out because of this.";

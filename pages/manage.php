@@ -37,9 +37,9 @@ if (isset($_SESSION["username"])){
     // Check for any MySQL errors or if zero rows are returned. If so,
     // redirect to error page.
     if (mysqli_error($dbConn)) {
-        header("location: ../pages/info.php?error=manage");
+        header("location: ../pages/info?error=manage");
     } else if (mysqli_num_rows($dbQueryResult) < 1) {
-        header("location: ../pages/info.php?error=manage--no_polls");
+        header("location: ../pages/info?error=manage--no_polls");
     } else {
         // Fetch the first poll result row, and store it in $dbQueryResultRow.
         $dbQueryResultRow = mysqli_fetch_assoc($dbQueryResult);
@@ -64,7 +64,7 @@ if (isset($_SESSION["username"])){
         </form>";
     }
 } else {
-    header("location: ../pages/info.php?error=manage");
+    header("location: ../pages/info?error=manage");
 }
 
 ?>

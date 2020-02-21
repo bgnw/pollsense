@@ -15,7 +15,7 @@
             <div class="card-container">
                 <div class="card">
                     <!-- PHP form to load an existing poll -->
-                    <form name="poll_join" action="vote.php" method="get">
+                    <form name="poll_join" action="vote" method="get">
                         <h2>Join a Poll</h2>
                         <div>
                             <input type="text" name="poll_id" maxlength="6" placeholder="Poll ID" required autofocus>

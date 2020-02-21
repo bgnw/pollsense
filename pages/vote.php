@@ -75,7 +75,7 @@ try {
         throw new Exception();
     }
 } catch (Exception $e) {
-    header("location: ../pages/info.php?error=poll_vote");
+    header("location: ../pages/info?error=poll_vote");
 }
 ?>
 
