@@ -12,7 +12,7 @@
         <div class="content">
             <br><br><br>
             <h2>No content yet!<br>Check back later.<br><br>
-            <a style="text-decoration: underline;font-weight: 500;color:blue;" href="index.php">Take me home!</a></h2>
+            <a style="text-decoration: underline;font-weight: 500;color:blue;" href="./">Take me home!</a></h2>
         </div>
         <!-- Footer -->
         <?php include "../scripts/incl_footer.php";?>

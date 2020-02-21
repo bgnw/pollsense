@@ -1,5 +1,5 @@
 <nav>
-<a style="height:auto;" class="logo" href="index.php">
+<a style="height:auto;" class="logo" href="./">
     <img class="logo" src="../assets/logo.svg" alt="PollSense Logo" height="60px">
 </a>
 <?php
@@ -21,7 +21,7 @@
         case false:
             // "falling through" to the next case, as the action is identical
             // to this case.
-        case "index.php":
+        case "./":
             $index_class = "current";
             break;
         case "about.php":
@@ -40,7 +40,7 @@
             $account_class = "current";
             break;
     }
-    $index = "<li><a class=\"$index_class\" href=\"index.php\" title=\"Return to the homepage\">Home</a></li>";
+    $index = "<li><a class=\"$index_class\" href=\"./\" title=\"Return to the homepage\">Home</a></li>";
     $about = "<li><a class=\"$about_class\" href=\"about.php\" title=\"Learn more about PollSense\">About</a></li>";
     $join = "<a class=\"action $join_class\" href=\"join.php\" title=\"Participate in an existing poll\">Join&nbsp;Poll</a>";
     $create = "<a class=\"action $create_class\" href=\"create.php\" title=\"Make a new poll\">Create&nbsp;Poll</a>";

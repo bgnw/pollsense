@@ -33,7 +33,7 @@ if (isset($_POST["poll_create_submit"])){
         if ($dbUsernameCheck_RowsReturned === 1) {
             $username = "\"$username\"";
         } else {
-            echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=poll_create--invalid_username\";</script>";
+            header("location: ../pages/info.php?error=poll_create--invalid_username");
         }
     }
 
@@ -49,7 +49,7 @@ if (isset($_POST["poll_create_submit"])){
     // directing users to an error page if there was an error, and continuing
     // with execution if not.
     if (mysqli_error($dbConn)){
-        echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=poll_create\";</script>";
+        header("location: ../pages/info.php?error=poll_create");
     } else {
         // If the query executed successfully, the newly created poll_id is
         // retrieved for use in the INSERT query for the options table.
@@ -78,7 +78,7 @@ if (isset($_POST["poll_create_submit"])){
         }
 
         if ($malformed){
-            echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=poll_create--malformed\";</script>";
+            header("location: ../pages/info.php?error=poll_create--malformed");
         } else {
             $i = 0;
             foreach($options as $option){
@@ -101,9 +101,9 @@ if (isset($_POST["poll_create_submit"])){
             // Checking for any returned errors from executing the above query, and
             // directing users to a success / error page accordingly.
             if (mysqli_error($dbConn)){
-                echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=poll_create\";</script>";
+                header("location: ../pages/info.php?error=poll_create");
             } else {
-                echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?success=poll_create&poll_id=$poll_id\";</script>";
+                header("location: ../pages/info.php?success=poll_create&poll_id=$poll_id");
             }
         }
     }
@@ -130,12 +130,12 @@ else if (isset($_POST["user_register_submit"])){
         // If there was an error, checking if the error was that there is
         // already a user account with the provided username.
         if (strpos(mysqli_error($dbConn),"Duplicate entry") !== false){
-            echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=user_register--username_exists&username=$username\";</script>";
+            header("location: ../pages/info.php?error=user_register--username_exists&username=$username");
         } else {
-            echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=user_register\";</script>";
+            header("location: ../pages/info.php?error=user_register");
         }
     } else {
-        echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?success=user_register&username=$username\";</script>";
+        header("location: ../pages/info.php?success=user_register&username=$username");
     }
 }
 
@@ -155,19 +155,19 @@ else if (isset($_POST["user_login_submit"])){
     // Checking for any returned errors from executing the above query, and
     // directing users to success / error pages accordingly.
     if (mysqli_error($dbConn)) {
-        echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=user_login--db_error\";</script>";
+        header("location: ../pages/info.php?error=user_login--db_error");
     } else if ((mysqli_num_rows($dbqResult)) !== 1) {
-        echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=user_login--invalid_credentials\";</script>";
+        header("location: ../pages/info.php?error=user_login--invalid_credentials");
     } else {
         $dbForenameQuery = "SELECT forename FROM users WHERE username = \"$username\"";
         $dbqForenameResult = mysqli_query($dbConn, $dbForenameQuery);
         if (mysqli_error($dbConn)) {
-            echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=user_login--db_error\";</script>";
+            header("location: ../pages/info.php?error=user_login--db_error");
         } else {
             $forename = (mysqli_fetch_assoc($dbqForenameResult))["forename"];
             $_SESSION["forename"] = $forename;
             $_SESSION["username"] = $username;
-            echo "<script type=\"text/javascript\">document.location = \"../scripts/account_redirect.php\";</script>";
+            header("location: ../scripts/account_redirect.php");
         }
     }
 }
@@ -182,21 +182,21 @@ else if (isset($_POST["poll_vote_submit"])){
     mysqli_query($dbConn, $dbQuery);
 
     if ((mysqli_error($dbConn)) || (mysqli_affected_rows($dbConn) != 1)) {
-        echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=poll_vote--db_error&poll_id=$poll_id\";</script>";
+        header("location: ../pages/info.php?error=poll_vote--db_error&poll_id=$poll_id");
     } else {
-        echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?success=poll_vote&poll_id=$poll_id\";</script>";
+        header("location: ../pages/info.php?success=poll_vote&poll_id=$poll_id");
     }
 }
 
 else if (isset($_POST["poll_manage_view"])){
     $poll_id = $_POST["radio_poll_manage"];
-    echo "<script type=\"text/javascript\">document.location = \"../pages/vote.php?poll_id=$poll_id\";</script>";
+    header("location: ../pages/vote.php?poll_id=$poll_id");
 
 }
 
 else if (isset($_POST["poll_manage_edit"])){
     $poll_id = $_POST["radio_poll_manage"];
-    echo "<script type=\"text/javascript\">document.location = \"../pages/edit.php?poll_id=$poll_id\";</script>";
+    header("location: ../pages/edit.php?poll_id=$poll_id");
 
 }
 
@@ -205,10 +205,10 @@ else if (isset($_POST["poll_manage_delete"])){
     // TODO: db query to delete poll
     if (mysqli_error($dbConn)) {
         // TODO: create related info page
-        echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=poll_manage--delete\";</script>";
+        header("location: ../pages/info.php?error=poll_manage--delete");
     } else {
         // TODO: create related info page
-        echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?success=poll_manage--delete\";</script>";
+        header("location: ../pages/info.php?success=poll_manage--delete");
     }
 }
 

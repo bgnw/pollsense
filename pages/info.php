@@ -18,7 +18,7 @@
 
                     <?php
                     $message = "";
-                    $linkTo = "index.php";
+                    $linkTo = "./";
                     $buttonLabel = "Back to homepage";
 
                     if (isset($_GET["error"])) {
@@ -124,7 +124,7 @@
                                 break;
                             }
                     } else {
-                        echo "<script type=\"text/javascript\">document.location = \"index.php\";</script>";
+                        header("location: ./");
                     }
                     echo "<script type=\"text/javascript\">document.title = \"PollSense › $tabTitle\"</script>";
                     echo "<h2>$messageTitle</h2>

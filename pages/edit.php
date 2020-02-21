@@ -80,7 +80,7 @@ try {
         throw new Exception();
     }
 } catch (Exception $e) {
-    // echo "<script type=\"text/javascript\">document.location = \"../pages/info.php?error=poll_edit\";</script>";
+    // header("location: ../pages/info.php?error=poll_edit");
 }
 ?>
 

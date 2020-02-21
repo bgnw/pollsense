@@ -8,7 +8,7 @@
     </head>
 
 <?php if (!isset($_SESSION["username"])){
-    echo "<script type=\"text/javascript\">document.location = \"../pages/signup_login.php\";</script>";
+    header("location: ../pages/signup_login.php");
 }?>
 
     <body id="index">
