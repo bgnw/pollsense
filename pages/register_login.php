@@ -5,7 +5,10 @@
         <?php include "../scripts/incl_head.php";?>
         <title>PollSense &rsaquo; Account</title>
     </head>
-
+<?php
+if (isset($_SESSION["username"])){
+    header("location: ../pages/logged_in_menu");
+}?>
     <body id="account">
         <!-- Navigation bar -->
         <?php include "../scripts/incl_navbar.php";?>
