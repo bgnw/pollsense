@@ -58,7 +58,7 @@ if (isset($_SESSION["username"])){
             $dbQueryResultRow = mysqli_fetch_assoc($dbQueryResult);
         }
         echo "</table><div>
-             <td><input type=\"submit\" name=\"poll_manage_view\" value=\"View poll\"></td>
+            <td><input type=\"submit\" name=\"poll_manage_view\" value=\"View poll\"></td>
             <td><input type=\"submit\" name=\"poll_manage_edit\" value=\"Edit poll\"></td>
             <td><input type=\"submit\" name=\"poll_manage_delete\" value=\"Delete poll\"></td></div>
         </form>";
