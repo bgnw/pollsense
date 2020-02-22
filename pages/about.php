@@ -10,9 +10,19 @@
         <!-- Navigation bar -->
         <?php include "../scripts/incl_navbar.php";?>
         <div class="content">
-            <br><br><br>
-            <h2>No content yet!<br>Check back later.<br><br>
-            <a style="text-decoration: underline;font-weight: 500;color:blue;" href="./">Take me home!</a></h2>
+            <div class="card-container">
+                <div class="card">
+                    <h2>About PollSense</h2>
+                    <p style="text-align: left;">
+                        PollSense is a place where you can create and participate in polls, to find out more about others, quickly and easily.
+                        <br><br>
+                        This site was made by Ben Agnew, as part of an SQA course assessment.
+                        <br><br>
+                        Noticed any problems?<br>
+                        Contact me at ????@????.com.
+                    </p>
+                </div>
+            </div>
         </div>
         <!-- Footer -->
         <?php include "../scripts/incl_footer.php";?>
