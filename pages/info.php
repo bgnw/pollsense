@@ -6,7 +6,7 @@
         <title>PollSense &rsaquo; Info</title>
     </head>
 
-    <body>
+    <body id="info">
         <!-- Navigation bar -->
         <?php include "../scripts/incl_navbar.php";?>
 
@@ -27,6 +27,12 @@
                         $messageTitle = "Uh oh!";
                         $buttonLabel = "Try again";
                         switch ($error) {
+                            case "no_login":
+                                $messageTitle = "Not loggged in";
+                                $message = "You must be logged in to perform this action.";
+                                $linkTo = "../scripts/account_redirect.php";
+                                $buttonLabel = "Log In or Register";
+                                break;
                             case "user_register":
                                 $message = "Something went wrong whilst creating your account, sorry.";
                                 $linkTo = "../scripts/account_redirect.php";
@@ -45,9 +51,9 @@
                                 $linkTo = "../scripts/account_redirect.php";
                                 break;
                             case "manage--no_polls":
-                                $message = "You don't have any polls connected to your account.<br>Try creating one now!";
-                                $linkTo = "create";
-                                $buttonLabel = "Create a poll";
+                                $message = "You don't have any polls connected to your account.<br><a class=\"inline-link\" href=\"create\">Try creating one now!</a>";
+                                $linkTo = "logged_in_menu";
+                                $buttonLabel = "Back to menu";
                                 break;
                             case "user_login--db_error":
                                 $message = "A database error occurred, so we couldn't log you in at this time. Sorry.";
@@ -71,7 +77,20 @@
                                 break;
                             case "poll_delete":
                                 $poll_id = $_GET["poll_id"];
-                                $message = "We couldn't delete your poll with ID: $poll_id at this time. Sorry.";
+                                $message = "We couldn't delete your poll with ID: <b>$poll_id</b> at this time. Sorry.";
+                                $linkTo = "manage";
+                                break;
+                            case "poll_delete--not_owner":
+                                $poll_id = $_GET["poll_id"];
+                                $messageTitle = "Not owner";
+                                $message = "You are not the owner of the poll with ID: <b>$poll_id</b>, or it may not exist.";
+                                $linkTo = "manage";
+                                $buttonLabel = "OK";
+                                break;
+                            case "poll_delete--no_confirm":
+                                $poll_id = $_GET["poll_id"];
+                                $messageTitle = "Not confirmed";
+                                $message = "We didn't delete your poll with ID: <b>$poll_id</b>, as you did not confirm you wanted to (by checking the checkbox).";
                                 $linkTo = "manage";
                                 break;
                             case "poll_vote":
@@ -109,7 +128,7 @@
                                 break;
                             case "poll_delete":
                                 $poll_id = $_GET["poll_id"];
-                                $message = "Your poll with ID: $poll_id has been successfully deleted.";
+                                $message = "Your poll with ID: <b>$poll_id</b> has been successfully deleted.";
                                 $linkTo = "manage";
                                 break;
                             case "poll_vote":
@@ -121,6 +140,10 @@
                             case "user_change_password":
                                 $message = "Your account password has been successfully changed.<br>You have been logged out because of this.";
                                 $linkTo = "../scripts/account_redirect.php";
+                                break;
+                            case "logout":
+                                $message = "You've been logged out. Hope to see you again soon.";
+                                $linkTo = "./";
                                 break;
                             }
                     } else {

@@ -202,13 +202,49 @@ else if (isset($_POST["poll_manage_edit"])){
 
 else if (isset($_POST["poll_manage_delete"])){
     $poll_id = $_POST["radio_poll_manage"];
-    // TODO: db query to delete poll
-    if (mysqli_error($dbConn)) {
-        // TODO: create related info page
-        header("location: ../pages/info?error=poll_manage--delete");
+    header("location: ../pages/delete_poll?poll_id=$poll_id");
+}
+
+else if (isset($_POST["delete_poll_cancel"])){
+    header("location: ../pages/manage");
+}
+
+else if (isset($_POST["delete_poll_submit"])) {
+    $poll_id = $_POST["poll_id"];
+    $confirm = $_POST["delete_poll_confirm"];
+    $user = $_SESSION["username"];
+    if ($confirm) {
+        $dbQueryPollOwner = "SELECT username FROM polls WHERE poll_id=\"$poll_id\"";
+        $dbQueryPollOwnerResult = mysqli_query($dbConn, $dbQueryPollOwner);
+        if (mysqli_error($dbConn)) {
+            // TODO: create related info page
+            header("location: ../pages/info?error=poll_delete&poll_id=$poll_id");
+        } else {
+            $owner = (mysqli_fetch_assoc($dbQueryPollOwnerResult))["username"];
+            if ($user === $owner){
+                $dbQueryOptions = "DELETE FROM options WHERE poll_id = $poll_id;";
+                mysqli_query($dbConn, $dbQueryOptions);
+                if (mysqli_error($dbConn)) {
+                    // TODO: create related info page
+                    header("location: ../pages/info?error=poll_delete&poll_id=$poll_id");
+                } else {
+                    $dbQueryPolls = "DELETE FROM polls WHERE poll_id = $poll_id;";
+                    mysqli_query($dbConn, $dbQueryPolls);
+                    if (mysqli_error($dbConn)) {
+                        // TODO: create related info page
+                        var_dump(mysqli_error($dbConn));
+                        header("location: ../pages/info?error=poll_delete&poll_id=$poll_id");
+                    } else {
+                        // TODO: create related info page
+                        header("location: ../pages/info?success=poll_delete&poll_id=$poll_id");
+                    }
+                }
+            } else {
+                header("location: ../pages/info?error=poll_delete--not_owner&poll_id=$poll_id");
+            }
+        }
     } else {
-        // TODO: create related info page
-        header("location: ../pages/info?success=poll_manage--delete");
+        header("location: ../pages/info?error=poll_delete--no_confirm&poll_id=$poll_id");
     }
 }
 
