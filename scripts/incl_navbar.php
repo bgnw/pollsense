@@ -65,10 +65,6 @@
     <div>
         $account
         $logout
-    </div>
-
-    <!-- TEMP: devpages - to be removed before release -->
-    <a style=\"margin-left:5px;background-color:#303138;color:#484a54;\" href=\"devpages\" class=\"action\">Dev</a>
-    ";
+    </div>";
 ?>
 </nav>
