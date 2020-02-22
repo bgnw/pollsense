@@ -1,5 +1,5 @@
 /* Font import */
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap);
 
 /* Global styles */
 * {
@@ -52,6 +52,15 @@ nav+.content {
     font-size: 12pt;
     cursor: pointer;
     display: inline;
+}
+
+.cancel {
+    background-color: rgba(128, 128, 128, 0.5) !important;
+}
+
+.danger {
+    background-color: #e56147 !important;
+    font-weight: 700 !important;
 }
 
 .secondary {
@@ -215,6 +224,11 @@ form table td:nth-child(2){
 
 form table td:nth-child(3){
     text-align: right;
+}
+
+.inline-link{
+    color: #0645ad;
+    text-decoration: underline;
 }
 
 /* Footer styles */
