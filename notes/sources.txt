@@ -1,0 +1,3 @@
+https://www.youtube.com/watch?v=vHYh-m4iXw4
+https://alexcican.com/post/how-to-remove-php-html-htm-extensions-with-htaccess/
+https://stackoverflow.com/questions/8371634/how-to-hide-php-extension-in-htaccess
