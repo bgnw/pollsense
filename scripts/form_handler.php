@@ -159,16 +159,11 @@ else if (isset($_POST["user_login_submit"])){
     } else if ((mysqli_num_rows($dbqResult)) !== 1) {
         // header("location: ../pages/info?error=user_login--invalid_credentials");
     } else {
-        $dbForenameQuery = "SELECT forename FROM users WHERE username = \"$username\"";
-        $dbqForenameResult = mysqli_query($dbConn, $dbForenameQuery);
-        if (mysqli_error($dbConn)) {
-            header("location: ../pages/info?error=user_login--db_error");
-        } else {
-            $forename = (mysqli_fetch_assoc($dbqForenameResult))["forename"];
-            $_SESSION["forename"] = $forename;
-            $_SESSION["username"] = $username;
-            header("location: ../scripts/account_redirect.php");
-        }
+        $dbqResultRow = mysqli_fetch_assoc($dbqResult);
+        $_SESSION["isAdmin"] = boolval($dbqResultRow["admin"]);
+        $_SESSION["forename"] = $dbqResultRow["forename"];
+        $_SESSION["username"] = $dbqResultRow["username"];
+        header("location: ../scripts/account_redirect.php");
     }
 }
 
