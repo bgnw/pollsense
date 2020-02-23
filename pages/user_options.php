@@ -11,7 +11,7 @@
     header("location: ../pages/register_login");
 }?>
 
-    <body id="index">
+    <body id="user_options">
         <!-- Navigation bar -->
         <?php include "../scripts/incl_navbar.php";?>
         <!-- Main content -->

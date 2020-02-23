@@ -52,7 +52,7 @@
                                 break;
                             case "manage--no_polls":
                                 $message = "You don't have any polls connected to your account.<br><a class=\"inline-link\" href=\"create\">Try creating one now!</a>";
-                                $linkTo = "logged_in_menu";
+                                $linkTo = "user_options";
                                 $buttonLabel = "Back to menu";
                                 break;
                             case "user_login--db_error":

@@ -7,7 +7,7 @@
     </head>
 <?php
 if (isset($_SESSION["username"])){
-    header("location: ../pages/logged_in_menu");
+    header("location: ../pages/user_options");
 }?>
     <body id="account">
         <!-- Navigation bar -->

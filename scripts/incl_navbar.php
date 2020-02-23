@@ -36,7 +36,7 @@
         case "register_login.php":
             // "falling through" to the next case, as the action is identical
             // to this case.
-        case "logged_in_menu.php":
+        case "user_options.php":
             $account_class = "current";
             break;
     }
