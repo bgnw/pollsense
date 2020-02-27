@@ -21,12 +21,12 @@
                 <div class="card welcome-card">
                     <h3>Join a poll</h3>
                     <p>Give your in opinion in an existing poll, if you know the ID.</p>
-                    <a class="action" href="join" title="Participate in an existing poll">Join Poll</a>
+                    <a class="action primary" href="join" title="Participate in an existing poll">Join Poll</a>
                 </div>
                 <div class="card welcome-card">
                     <h3>Create a poll</h3>
                     <p>Create a poll to gather insight on a question from others.</p>
-                    <a class="action" href="create" title="Make a new poll">Create Poll</a>
+                    <a class="action primary" href="create" title="Make a new poll">Create Poll</a>
                 </div>
             </div>
             <div class="card-container">

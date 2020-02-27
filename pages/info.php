@@ -152,7 +152,7 @@
                     echo "<script type=\"text/javascript\">document.title = \"PollSense › $tabTitle\"</script>";
                     echo "<h2>$messageTitle</h2>
                     <p>$message</p>
-                    <a class=\"action\" href=\"$linkTo\">$buttonLabel</a>";
+                    <a class=\"action primary\" href=\"$linkTo\">$buttonLabel</a>";
                     ?>
                     </div>
                 </div>

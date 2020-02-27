@@ -26,7 +26,7 @@
                 <div class="card welcome-card">
                     <h3>Manage Polls</h3>
                     <p>See the polls you own, and view, edit, or delete them.</p>
-                    <a class="action" href="manage" title="Manage the polls you own">My Polls</a>
+                    <a class="action primary" href="manage" title="Manage the polls you own">My Polls</a>
                 </div>
 
             </div>

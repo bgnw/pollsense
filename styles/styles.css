@@ -44,8 +44,7 @@ nav+.content {
     padding: 5px;
 }
 
-.action, input[type=submit] {
-    background-color: #5a86f2;
+.action, input[type=submit], .admin-msg {
     border: none;
     border-radius: 20px;
     padding: 11px 20px;
@@ -63,8 +62,16 @@ nav+.content {
     font-weight: 700 !important;
 }
 
+.primary, input[type=submit] {
+    background-color: #5a86f2;
+}
+
 .secondary {
-    background-color: #596bf2;
+    background-color: #596bf2 !important;
+}
+
+.tertiary{
+    background-color: #735aff !important;
 }
 
 .navbar-links {
