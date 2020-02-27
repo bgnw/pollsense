@@ -66,9 +66,6 @@ try {
                     $dbOptionsQueryResultRow = mysqli_fetch_assoc($dbOptionsQueryResult);
                     $i++;
                 }
-                echo "</table>
-                <input type=\"submit\" name=\"poll_vote_submit\" value=\"Submit vote\">
-                </form>";
             }
         }
     } else {
@@ -78,7 +75,11 @@ try {
     header("location: ../pages/info?error=poll_vote");
 }
 ?>
-
+                    </table>
+                    <table class="actions">
+                        <td><input class="secondary" type="submit" name="poll_vote_report" value="Report this poll"></td>
+                        <td><input type="submit" name="poll_vote_submit" value="Submit vote"></td>
+                    </form>
                 </div>
             </div>
         </div>

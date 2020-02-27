@@ -16,6 +16,7 @@ CREATE TABLE polls (
     title VARCHAR(64) NOT NULL,
     mult_choice BOOLEAN DEFAULT 0 NOT NULL,
     username VARCHAR(64),
+    reports INT UNSIGNED DEFAULT 0 NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username)
 );
 

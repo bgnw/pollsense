@@ -29,6 +29,17 @@
                     <a class="action primary" href="manage" title="Manage the polls you own">My Polls</a>
                 </div>
 
+            <?php if (isset($_SESSION["isAdmin"])){
+                if ($_SESSION["isAdmin"]){
+                    echo "
+                    <div class=\"card welcome-card\">
+                        <h3>Reported Polls</h3><img title=\"Admin-only option\" style=\"position:absolute;top:20px;right:20px;\" src=\"../assets/admin_icon.svg\" width=\"20px\">
+                        <p>View all polls that have been reported.</p>
+                        <a class=\"action primary\" href=\"reports\" title=\"See polls that have been reported\">View Reported Polls</a>
+                    </div>
+                    ";
+                }
+            }?>
             </div>
             <div class="card-container">
                 <div class="card welcome-card">

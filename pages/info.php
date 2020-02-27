@@ -46,6 +46,16 @@
                                 $message = "We couldn't find anything that matched that Poll ID, sorry.";
                                 $linkTo = "join";
                                 break;
+                            case "poll_vote--db_error":
+                                $poll_id = $_GET["poll_id"];
+                                $message = "We couldn't record your poll vote at this time, sorry.";
+                                $buttonLabel = "View the poll";
+                                $linkTo = "vote?poll_id=$poll_id";
+                                break;
+                            case "poll_report":
+                                $message = "Something went wrong while reporting the poll, sorry.";
+                                $linkTo = "join";
+                                break;
                             case "manage":
                                 $message = "We couldn't load your poll management page, sorry.";
                                 $linkTo = "../scripts/account_redirect.php";
@@ -93,18 +103,20 @@
                                 $message = "We didn't delete your poll with ID: <b>$poll_id</b>, as you did not confirm you wanted to (by checking the checkbox).";
                                 $linkTo = "manage";
                                 break;
-                            case "poll_vote":
-                                $message = "We couldn't record your poll_vote at this time, sorry.";
-                                break;
-                            case "poll_vote--db_error":
-                                $poll_id = $_GET["poll_id"];
-                                $message = "We couldn't record your poll_vote at this time, sorry.";
-                                $buttonLabel = "View the poll";
-                                $linkTo = "vote?poll_id=$poll_id";
-                                break;
                             case "user_change_password":
                                 $message = "Something went wrong whilst changing your password.<br>Your password has <b>not</b> been changed!";
                                 $linkTo = "change_password";
+                                break;
+                            case "poll_report_clear":
+                                $poll_id = $_GET["poll_id"];
+                                $message = "Something went wrong while clearing the reports from the poll with ID: <b>$poll_id</b>, sorry.";
+                                $linkTo = "reports";
+                                break;
+                            case "reports--no_polls":
+                                $messageTitle = "No reports";
+                                $message = "There are no reports to display at this time.";
+                                $linkTo = "user_options";
+                                $buttonLabel = "Back";
                                 break;
                         }
 
@@ -142,8 +154,14 @@
                                 $linkTo = "../scripts/account_redirect.php";
                                 break;
                             case "logout":
+                                $messageTitle = "Logout successful";
                                 $message = "You've been logged out. Hope to see you again soon.";
                                 $linkTo = "./";
+                                break;
+                            case "poll_report_clear":
+                                $poll_id = $_GET["poll_id"];
+                                $message = "Reports have been cleared from the poll with ID: <b>$poll_id</b>.";
+                                $linkTo = "reports";
                                 break;
                             }
                     } else {

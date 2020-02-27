@@ -183,6 +183,20 @@ else if (isset($_POST["poll_vote_submit"])){
     }
 }
 
+else if (isset($_POST["poll_vote_report"])){
+    $poll_id = mysqli_real_escape_string($dbConn, $_POST["poll_id"]);
+
+    $dbQuery = "UPDATE polls SET reports = reports + 1 WHERE poll_id = $poll_id;";
+
+    mysqli_query($dbConn, $dbQuery);
+
+    if ((mysqli_error($dbConn)) || (mysqli_affected_rows($dbConn) != 1)) {
+        header("location: ../pages/info?error=poll_report--db_error&poll_id=$poll_id");
+    } else {
+        header("location: ../pages/info?success=poll_report&poll_id=$poll_id");
+    }
+}
+
 else if (isset($_POST["poll_manage_view"])){
     $poll_id = $_POST["radio_poll_manage"];
     header("location: ../pages/vote?poll_id=$poll_id");
@@ -216,7 +230,7 @@ else if (isset($_POST["delete_poll_submit"])) {
             header("location: ../pages/info?error=poll_delete&poll_id=$poll_id");
         } else {
             $owner = (mysqli_fetch_assoc($dbQueryPollOwnerResult))["username"];
-            if ($user === $owner){
+            if ($user === $owner or $_SESSION["isAdmin"]){
                 $dbQueryOptions = "DELETE FROM options WHERE poll_id = $poll_id;";
                 mysqli_query($dbConn, $dbQueryOptions);
                 if (mysqli_error($dbConn)) {
@@ -262,4 +276,27 @@ else if (isset($_POST["user_change_password_submit"])){
     } else {
         header("location: ../pages/info?error=user_change_password");
     }
+}
+
+else if (isset($_POST["poll_report_view"])){
+    header("location: ../pages/vote?poll_id=".$_POST["radio_reports"]);
+}
+
+else if (isset($_POST["poll_report_clear"])){
+    if (is_numeric($_POST["radio_reports"])){
+        $poll_id = $_POST["radio_reports"];
+        $resetReportsQuery = "UPDATE polls SET reports = 0 WHERE poll_id = $poll_id";
+        mysqli_query($dbConn, $resetReportsQuery);
+        if (mysqli_error($dbConn) or mysqli_affected_rows($dbConn) !== 1) {
+            header("location: ../pages/info?error=poll_report_clear&poll_id=$poll_id");
+        } else {
+            header("location: ../pages/info?success=poll_report_clear&poll_id=$poll_id");
+        }
+    } else {
+        header("location: ../pages/info?error=poll_report_clear&poll_id=$poll_id");
+    }
+}
+
+else if (isset($_POST["poll_report_delete"])){
+    header("location: ../pages/delete_poll?poll_id=".$_POST["radio_reports"]);
 }
