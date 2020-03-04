@@ -6,18 +6,18 @@ USE pollsense;
 CREATE TABLE users (
     forename VARCHAR(64) NOT NULL,
     surname VARCHAR(64) NOT NULL,
-    username VARCHAR(64) NOT NULL UNIQUE PRIMARY KEY,
+    username VARCHAR(64) NOT NULL PRIMARY KEY UNIQUE,
     password VARCHAR(64) NOT NULL,
     admin BOOLEAN DEFAULT 0 NOT NULL
 );
 
 CREATE TABLE polls (
-    poll_id INT UNSIGNED AUTO_INCREMENT UNIQUE PRIMARY KEY NOT NULL,
+    poll_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE ,
     title VARCHAR(64) NOT NULL,
     mult_choice BOOLEAN DEFAULT 0 NOT NULL,
     username VARCHAR(64),
     reports INT UNSIGNED DEFAULT 0 NOT NULL,
-    FOREIGN KEY (username) REFERENCES users(username)
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE options (
@@ -26,7 +26,7 @@ CREATE TABLE options (
     option_text VARCHAR(64) NOT NULL,
     votes INT UNSIGNED DEFAULT 0 NOT NULL,
     PRIMARY KEY (poll_id, option_no),
-    FOREIGN KEY (poll_id) REFERENCES polls(poll_id)
+    FOREIGN KEY (poll_id) REFERENCES polls(poll_id) ON DELETE CASCADE
 );
 
 INSERT INTO users VALUES
