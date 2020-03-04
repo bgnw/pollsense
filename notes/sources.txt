@@ -1,3 +1,7 @@
 https://www.youtube.com/watch?v=vHYh-m4iXw4
 https://alexcican.com/post/how-to-remove-php-html-htm-extensions-with-htaccess/
 https://stackoverflow.com/questions/8371634/how-to-hide-php-extension-in-htaccess
+
+youtu.be/qUW6GAK6CBA
+stackoverflow.com/questions/6220546/count-number-of-iterations-in-a-foreach-loop
+youtu.be/dP0KM49IVk
