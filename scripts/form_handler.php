@@ -153,17 +153,19 @@ elseif (isset($_POST["user_login_submit"])){
 
 elseif (isset($_POST["poll_vote_submit"])){
     $poll_id = mysqli_real_escape_string($dbConn, $_POST["poll_id"]);
-    $option_no = mysqli_real_escape_string($dbConn, $_POST["option_no"]);
-
-    $dbQuery = "UPDATE options SET votes = votes + 1 WHERE poll_id = $poll_id
-    AND option_no = $option_no;";
+    $options = $_POST["options"];
+    foreach($options as $option){
+        $option = mysqli_real_escape_string($dbConn, $option);
+        $dbQuery = "UPDATE options SET votes = votes + 1 WHERE poll_id = $poll_id
+        AND option_no = $option;";
 
         mysqli_query($dbConn, $dbQuery);
 
-    if ((mysqli_error($dbConn)) || (mysqli_affected_rows($dbConn) != 1)) {
-        header("location: ../pages/info?error=poll_vote--db_error&poll_id=$poll_id");
-    } else {
-        header("location: ../pages/info?success=poll_vote&poll_id=$poll_id");
+        if ((mysqli_error($dbConn)) || (mysqli_affected_rows($dbConn) != 1)) {
+            header("location: ../pages/info?error=poll_vote--db_error&poll_id=$poll_id");
+        } else {
+            header("location: ../pages/info?success=poll_vote&poll_id=$poll_id");
+        }
     }
 }
 
