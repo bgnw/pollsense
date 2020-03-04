@@ -24,7 +24,7 @@ if (isset($_POST["poll_create_submit"])){
     // database, or if it is an empty string, converts it to a NULL value for
     // use in the database INSERT query.
     $username = mysqli_real_escape_string($dbConn, $_POST["username"]);
-    if ($username == ""){
+    if ($username === ""){
         $username = "NULL";
     } else {
         $dbUsernameCheck = "SELECT * FROM users WHERE username = \"$username\";";
@@ -58,53 +58,37 @@ if (isset($_POST["poll_create_submit"])){
         // Unpack the Option fields, and store them in an array called $options
         // for later use.
         // Then check if each option actually contains data; if it is an empty
-        // string, converts it to a NULL value for use in the database query.
+        // string, skips the option and decrements $i so options are in order.
         // Then appends these options into to a string so that it can be used in
         // the VALUES section of the database query.
-        $options = array_map(null,$_POST["opt"]);
+        $options = array_map(NULL,$_POST["opt"]);
         $option_query_string = "";
-
-        // Checks if the form data is "malformed", e.g. a user fills out option
-        // fields 1, 2, 4, and 5, but not 3. (see ongoing testing entry no. 2)
-        $malformed = FALSE;
-        $emptyFieldFound = FALSE;
-        for ($x = 0; $x <= 9; $x++) {
-            if (!$options[$x]){
-                $emptyFieldFound = TRUE;
+        $i = 0;
+        foreach($options as $option){
+            if ($option) {
+                $escaped_option = mysqli_real_escape_string($dbConn, $option);
+                $option_query_string .= "($poll_id, $i,\"$escaped_option\"),";
+            } elseif ($option === "") {
+                $i--;
             }
-            else if (($options[$x]) and $emptyFieldFound){
-                $malformed = TRUE;
-            }
+            $i++;
         }
+        echo $option_query_string = rtrim($option_query_string,",");
 
-        if ($malformed){
-            header("location: ../pages/info?error=poll_create--malformed");
+        // Using the above option string to prepare the database INSERT query
+        // string for the options table.
+        $dbOptionsQuery = "INSERT INTO options (poll_id, option_no, option_text)
+        VALUES $option_query_string;";
+
+        // Executing the above query.
+        mysqli_query($dbConn, $dbOptionsQuery);
+
+        // Checking for any returned errors from executing the above query, and
+        // directing users to a success / error page accordingly.
+        if (mysqli_error($dbConn)){
+            header("location: ../pages/info?error=poll_create");
         } else {
-            $i = 0;
-            foreach($options as $option){
-                $i++;
-                if ($option){
-                    $escaped_option = mysqli_real_escape_string($dbConn, $option);
-                    $option_query_string .= "($poll_id, $i,\"$escaped_option\"),";
-                }
-            }
-            $option_query_string = rtrim($option_query_string,",");
-
-            // Using the above option string to prepare the database INSERT query
-            // string for the options table.
-            $dbOptionsQuery = "INSERT INTO options (poll_id, option_no, option_text)
-            VALUES $option_query_string;";
-
-            // Executing the above query.
-            mysqli_query($dbConn, $dbOptionsQuery);
-
-            // Checking for any returned errors from executing the above query, and
-            // directing users to a success / error page accordingly.
-            if (mysqli_error($dbConn)){
-                header("location: ../pages/info?error=poll_create");
-            } else {
-                header("location: ../pages/info?success=poll_create&poll_id=$poll_id");
-            }
+            header("location: ../pages/info?success=poll_create&poll_id=$poll_id");
         }
     }
 }
