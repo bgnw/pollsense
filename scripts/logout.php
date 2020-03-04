@@ -2,4 +2,8 @@
 session_start();
 session_unset();
 session_destroy();
-header("location: ../pages/info?success=logout");
+if (isset($_GET["redirect"])){
+    header("location: ../pages/info?success=logout");
+} else {
+    echo "Logout successful.";
+}

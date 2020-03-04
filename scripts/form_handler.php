@@ -110,7 +110,7 @@ if (isset($_POST["poll_create_submit"])){
 }
 
 // Checks if the sent form is the "New Users" form (from register_login).
-else if (isset($_POST["user_register_submit"])){
+elseif (isset($_POST["user_register_submit"])){
     // Unpack all form data, escaping to prevent SQL injection.
     $forename = mysqli_real_escape_string($dbConn, $_POST["forename"]);
     $surname = mysqli_real_escape_string($dbConn, $_POST["surname"]);
@@ -140,7 +140,7 @@ else if (isset($_POST["user_register_submit"])){
 }
 
 // Checks if the sent form is the "Existing Users" form (from register_login).
-else if (isset($_POST["user_login_submit"])){
+elseif (isset($_POST["user_login_submit"])){
     // Unpack all form data, escaping to prevent SQL injection.
     $username = mysqli_real_escape_string($dbConn, $_POST["username"]);
     $password = mysqli_real_escape_string($dbConn, $_POST["password"]);
@@ -156,8 +156,8 @@ else if (isset($_POST["user_login_submit"])){
     // directing users to success / error pages accordingly.
     if (mysqli_error($dbConn)) {
         header("location: ../pages/info?error=user_login--db_error");
-    } else if ((mysqli_num_rows($dbqResult)) !== 1) {
-        // header("location: ../pages/info?error=user_login--invalid_credentials");
+    } elseif ((mysqli_num_rows($dbqResult)) !== 1) {
+        header("location: ../pages/info?error=user_login--invalid_credentials");
     } else {
         $dbqResultRow = mysqli_fetch_assoc($dbqResult);
         $_SESSION["isAdmin"] = boolval($dbqResultRow["admin"]);
@@ -167,14 +167,14 @@ else if (isset($_POST["user_login_submit"])){
     }
 }
 
-else if (isset($_POST["poll_vote_submit"])){
+elseif (isset($_POST["poll_vote_submit"])){
     $poll_id = mysqli_real_escape_string($dbConn, $_POST["poll_id"]);
     $option_no = mysqli_real_escape_string($dbConn, $_POST["option_no"]);
 
     $dbQuery = "UPDATE options SET votes = votes + 1 WHERE poll_id = $poll_id
     AND option_no = $option_no;";
 
-    mysqli_query($dbConn, $dbQuery);
+        mysqli_query($dbConn, $dbQuery);
 
     if ((mysqli_error($dbConn)) || (mysqli_affected_rows($dbConn) != 1)) {
         header("location: ../pages/info?error=poll_vote--db_error&poll_id=$poll_id");
@@ -183,7 +183,7 @@ else if (isset($_POST["poll_vote_submit"])){
     }
 }
 
-else if (isset($_POST["poll_vote_report"])){
+elseif (isset($_POST["poll_vote_report"])){
     $poll_id = mysqli_real_escape_string($dbConn, $_POST["poll_id"]);
 
     $dbQuery = "UPDATE polls SET reports = reports + 1 WHERE poll_id = $poll_id;";
@@ -197,31 +197,31 @@ else if (isset($_POST["poll_vote_report"])){
     }
 }
 
-else if (isset($_POST["poll_manage_view"])){
+elseif (isset($_POST["poll_manage_view"])){
     $poll_id = $_POST["radio_poll_manage"];
     header("location: ../pages/vote?poll_id=$poll_id");
 
 }
 
-else if (isset($_POST["poll_manage_edit"])){
+elseif (isset($_POST["poll_manage_edit"])){
     $poll_id = $_POST["radio_poll_manage"];
     header("location: ../pages/edit?poll_id=$poll_id");
 
 }
 
-else if (isset($_POST["poll_manage_delete"])){
+elseif (isset($_POST["poll_manage_delete"])){
     $poll_id = $_POST["radio_poll_manage"];
     header("location: ../pages/delete_poll?poll_id=$poll_id");
 }
 
-else if (isset($_POST["delete_poll_cancel"])){
+elseif (isset($_POST["delete_poll_cancel"])){
     header("location: ../pages/manage");
 }
 
-else if (isset($_POST["delete_poll_submit"])) {
+elseif (isset($_POST["delete_poll_submit"])) {
     $poll_id = $_POST["poll_id"];
     $confirm = $_POST["delete_poll_confirm"];
-    $user = $_SESSION["username"];
+    $username = $_SESSION["username"];
     if ($confirm) {
         $dbQueryPollOwner = "SELECT username FROM polls WHERE poll_id=\"$poll_id\"";
         $dbQueryPollOwnerResult = mysqli_query($dbConn, $dbQueryPollOwner);
@@ -230,7 +230,7 @@ else if (isset($_POST["delete_poll_submit"])) {
             header("location: ../pages/info?error=poll_delete&poll_id=$poll_id");
         } else {
             $owner = (mysqli_fetch_assoc($dbQueryPollOwnerResult))["username"];
-            if ($user === $owner or $_SESSION["isAdmin"]){
+            if ($username === $owner or $_SESSION["isAdmin"]){
                 $dbQueryOptions = "DELETE FROM options WHERE poll_id = $poll_id;";
                 mysqli_query($dbConn, $dbQueryOptions);
                 if (mysqli_error($dbConn)) {
@@ -278,11 +278,11 @@ else if (isset($_POST["user_change_password_submit"])){
     }
 }
 
-else if (isset($_POST["poll_report_view"])){
+elseif (isset($_POST["poll_report_view"])){
     header("location: ../pages/vote?poll_id=".$_POST["radio_reports"]);
 }
 
-else if (isset($_POST["poll_report_clear"])){
+elseif (isset($_POST["poll_report_clear"])){
     if (is_numeric($_POST["radio_reports"])){
         $poll_id = $_POST["radio_reports"];
         $resetReportsQuery = "UPDATE polls SET reports = 0 WHERE poll_id = $poll_id";
@@ -297,6 +297,6 @@ else if (isset($_POST["poll_report_clear"])){
     }
 }
 
-else if (isset($_POST["poll_report_delete"])){
+elseif (isset($_POST["poll_report_delete"])){
     header("location: ../pages/delete_poll?poll_id=".$_POST["radio_reports"]);
 }

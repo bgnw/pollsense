@@ -4,7 +4,7 @@
         <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
         <?php include "../scripts/incl_head.php";?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>PollSense</title>
+        <title>PollSense &rsaquo; User Options</title>
     </head>
 
 <?php if (!isset($_SESSION["username"])){
@@ -23,6 +23,7 @@
             <br>
             <!-- Links and descriptions of logged in features -->
             <div class="card-container">
+                <?php if (isset($_SESSION["isAdmin"])){
                 <div class="card welcome-card">
                     <h3>Manage Polls</h3>
                     <p>See the polls you own, and view, edit, or delete them.</p>

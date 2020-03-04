@@ -29,11 +29,11 @@ CREATE TABLE options (
     FOREIGN KEY (poll_id) REFERENCES polls(poll_id)
 );
 
-INSERT INTO users (forename, surname, username, password, admin) VALUES
-("Admin", "User", "admin", "$B8b^BKRSJFn*$H-", 1),
-("Alice", "Adams", "alice.adams", "pshg3yb78S3!R#!2", 0),
-("Bob", "Bennett", "bob.bennett", "afZ9St2$!$Y*Su-W", 0),
-("Charlie", "Cook", "charlie.cook", "WJmey5h=&8c&a#R^", 0);
+INSERT INTO users VALUES
+("Admin", "User", "admin", "7SxgFf29N2rJxuZB", 1),
+("Alice", "Adams", "alice.adams", "AYXi6sooWjNc0ZVU", 0),
+("Bob", "Bennett", "bob.bennett", "dCQi6Nzo1p7FLj1o", 0),
+("Charlie", "Cook", "charlie.cook", "vVQuuR2IdpV9NFgU", 0);
 
 INSERT INTO polls (title, mult_choice, username) VALUES
 ("Favourite day?", 0, "bob.bennett"),

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
-        <?php include "../scripts/incl_head.php";?>
-        <title>PollSense &rsaquo; Delete Account</title>
-    </head>
+<head>
+    <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
+    <?php include "../scripts/incl_head.php";?>
+    <title>PollSense &rsaquo; Delete Account</title>
+</head>
 
-    <body id="delete_account">
-        <!-- Navigation bar -->
-        <?php include "../scripts/incl_navbar.php";?>
+<?php
+if (!isset($_SESSION["username"])){
+header("location: ../pages/info?error=no_login");
+}
+?>
 
         <!-- Main content -->
         <div class="content">
@@ -24,7 +26,8 @@
                 </div>
             </div>
         </div>
-        <!-- Footer -->
-        <?php include "../scripts/incl_footer.php";?>
-    </body>
+    </div>
+    <!-- Footer -->
+    <?php include "../scripts/incl_footer.php";?>
+</body>
 </html>

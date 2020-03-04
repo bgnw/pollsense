@@ -38,15 +38,20 @@ if (isset($_SESSION["username"])){
     // redirect to error page.
     if (mysqli_error($dbConn)) {
         header("location: ../pages/info?error=manage");
-    } else if (mysqli_num_rows($dbQueryResult) < 1) {
+    } elseif (mysqli_num_rows($dbQueryResult) < 1) {
         header("location: ../pages/info?error=manage--no_polls");
     } else {
         // Fetch the first poll result row, and store it in $dbQueryResultRow.
         $dbQueryResultRow = mysqli_fetch_assoc($dbQueryResult);
-        $forename = $dbQueryResultRow["forename"];
+
+        if (isset($_GET["all-polls"])){
+            $header = "All Polls";
+        } else {
+            $header = $dbQueryResultRow["forename"]."'s Polls";
+        }
         echo "<form name=\"manage\" action=\"../scripts/form_handler.php\"
         method=\"post\">
-        <h2>".$forename."'s Polls</h2>
+        <h2>$header</h2>
         <table>";
         while ($dbQueryResultRow){
             echo "<tr>
@@ -57,10 +62,7 @@ if (isset($_SESSION["username"])){
             </tr>";
             $dbQueryResultRow = mysqli_fetch_assoc($dbQueryResult);
         }
-        echo "</table><div>
-            <td><input type=\"submit\" name=\"poll_manage_view\" value=\"View poll\"></td>
-            <td><input type=\"submit\" name=\"poll_manage_edit\" value=\"Edit poll\"></td>
-            <td><input type=\"submit\" name=\"poll_manage_delete\" value=\"Delete poll\"></td></div>
+        echo "
         </form>";
     }
 } else {
@@ -68,6 +70,13 @@ if (isset($_SESSION["username"])){
 }
 
 ?>
+
+                    </table>
+                    <table class="actions">
+                        <td><input type="submit" name="poll_manage_view" value="View poll"></td>
+                        <td><input type="submit" class="secondary" name="poll_manage_edit" value="Edit poll"></td>
+                        <td><input type="submit" class="tertiary" name="poll_manage_delete" value="Delete poll"></td>
+                    </table>
                 </div>
             </div>
         </div>

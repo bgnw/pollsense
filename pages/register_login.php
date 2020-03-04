@@ -51,19 +51,19 @@ if (isset($_SESSION["username"])){
                 <th>Password</th>
                 <tr>
                     <td>admin</td>
-                    <td style="font-family:monospace">$B8b^BKRSJFn*$H-</td>
+                    <td style="font-family:monospace">7SxgFf29N2rJxuZB</td>
                 </tr>
                 <tr>
                     <td>alice.adams</td>
-                    <td style="font-family:monospace">pshg3yb78S3!R#!2</td>
+                    <td style="font-family:monospace">AYXi6sooWjNc0ZVU</td>
                 </tr>
                 <tr>
                     <td>bob.bennett</td>
-                    <td style="font-family:monospace">afZ9St2$!$Y*Su-W</td>
+                    <td style="font-family:monospace">dCQi6Nzo1p7FLj1o</td>
                 </tr>
                 <tr>
                     <td>charlie.cook</td>
-                    <td style="font-family:monospace">WJmey5h=&8c&a#R^</td>
+                    <td style="font-family:monospace">vVQuuR2IdpV9NFgU</td>
                 </tr>
             </table>
             </div>

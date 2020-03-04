@@ -47,7 +47,7 @@
     $account = "<a class=\"action secondary $account_class\" href=\"../scripts/account_redirect.php\" title=\"Log In or Sign Up\">Account</a>";
 
     if (isset($_SESSION["username"])){
-        $logout = "<a class=\"action secondary\" href=\"../scripts/logout.php\" title=\"Log out of your account\">Log&nbsp;Out</a>";
+        $logout = "<a class=\"action secondary\" href=\"../scripts/logout.php?redirect\" title=\"Log out of your account\">Log&nbsp;Out</a>";
     } else {
         $logout = "";
     }

@@ -20,36 +20,36 @@ include "../scripts/incl_db_handler.php";
 
 if (isset($_SESSION["isAdmin"])){
     if ($_SESSION["isAdmin"]){
-        $dbQuery = "SELECT poll_id, title, reports FROM polls
+        $reportsQuery = "SELECT poll_id, title, reports FROM polls
         WHERE reports > 0;";
 
-        // Execute the above query, and store the result in $dbQueryResult.
-        $dbQueryResult = mysqli_query($dbConn, $dbQuery);
+        // Execute the above query, and store the result in $reportsResult.
+        $reportsResult = mysqli_query($dbConn, $reportsQuery);
 
         // Check for any MySQL errors or if zero rows are returned. If so,
         // redirect to error page.
         if (mysqli_error($dbConn)) {
             // header("location: ../pages/info?error=reports--db_error");
-        } else if (mysqli_num_rows($dbQueryResult) < 1) {
+        } elseif (mysqli_num_rows($reportsResult) < 1) {
             header("location: ../pages/info?error=reports--no_polls");
         } else {
-            // Fetch the first poll result row, and store it in $dbQueryResultRow.
-            $dbQueryResultRow = mysqli_fetch_assoc($dbQueryResult);
+            // Fetch the first poll result row, and store it in $reportsResultRow.
+            $reportsResultRow = mysqli_fetch_assoc($reportsResult);
             echo "<form name=\"reports\" action=\"../scripts/form_handler.php\"
             method=\"post\">
             <table>";
-            while ($dbQueryResultRow){
+            while ($reportsResultRow){
                 $plural = "";
-                if ($dbQueryResultRow["reports"] != 1){
+                if ($reportsResultRow["reports"] != 1){
                     $plural = "s";
                 }
                 echo "<tr>
                     <td><td><input type=\"radio\" value=\"".
-                    $dbQueryResultRow["poll_id"]."\" required name=\"radio_reports\"></td></td>
-                    <td><h3>".$dbQueryResultRow["title"]."</h3></td>
-                    <td><p>".$dbQueryResultRow["reports"]." report$plural</p></td>
+                    $reportsResultRow["poll_id"]."\" required name=\"radio_reports\"></td></td>
+                    <td><h3>".$reportsResultRow["title"]."</h3></td>
+                    <td><p>".$reportsResultRow["reports"]." report$plural</p></td>
                 </tr>";
-                $dbQueryResultRow = mysqli_fetch_assoc($dbQueryResult);
+                $reportsResultRow = mysqli_fetch_assoc($reportsResult);
             }
             echo "";
         }

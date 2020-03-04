@@ -9,7 +9,7 @@
 <?php
 if (!isset($_SESSION["username"])){
     header("location: ../pages/info?error=no_login");
-} else if (!isset($_GET["poll_id"])){
+} elseif (!isset($_GET["poll_id"])){
     header("location: ../pages/info?error=no_poll_id");
 }
 ?>
@@ -25,9 +25,9 @@ if (!isset($_SESSION["username"])){
                     <form name="delete_poll" action="../scripts/form_handler.php" method="post">
                         <?php echo "<input type=\"hidden\" name=\"poll_id\" value=".$_GET["poll_id"].">";?>
                         <h2>Delete Poll</h2>
-                        <p>This will erase the poll with ID: <b><?php echo $_GET["poll_id"];?></b>.<br>This action cannot be undone!</h3><br><br>
+                        <p>This will erase this poll. (ID: <b><?php echo $_GET["poll_id"];?></b>)<br>This action cannot be undone!</h3><br><br>
                         <?php if ($_SESSION["isAdmin"]){
-                            echo "<i>NOTICE: <b>You do not own this poll</b>, but have control of it as you are an admin.</i><br><br>";
+                            echo "<i>NOTICE: <b>You are logged into an admin account</b>, so this may not be your poll.<br>Please be careful.</i><br><br>";
                         }?>
                         <input type="checkbox" id="delete_poll_confirm" name="delete_poll_confirm">
                         <label for="delete_poll_confirm">I wish to delete this poll.</label><br>
