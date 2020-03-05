@@ -33,6 +33,12 @@
                                 $linkTo = "../scripts/account_redirect.php";
                                 $buttonLabel = "Log In or Register";
                                 break;
+                            case "no_admin":
+                                $messageTitle = "Not admin";
+                                $message = "You must be an admin to perform this action.";
+                                $linkTo = "./";
+                                $buttonLabel = "OK";
+                                break;
                             case "user_register":
                                 $message = "Something went wrong whilst creating your account, sorry.";
                                 $linkTo = "../scripts/account_redirect.php";
@@ -98,7 +104,7 @@
                                 $buttonLabel = "OK";
                                 break;
                             case "poll_delete--no_confirm":
-                                $poll_id = $_GET["poll_id"];
+
                                 $messageTitle = "Not confirmed";
                                 $message = "We didn't delete your poll with ID: <b>$poll_id</b>, as you did not confirm you wanted to (by checking the checkbox).";
                                 $linkTo = "manage";
@@ -118,9 +124,10 @@
                                 $linkTo = "user_options";
                                 $buttonLabel = "Back";
                                 break;
+
                         }
 
-                    } else if (isset($_GET["success"])) {
+                    } elseif (isset($_GET["success"])) {
                         $success = $_GET["success"];
                         $tabTitle = "Success";
                         $messageTitle = "Success!";
@@ -156,12 +163,18 @@
                             case "logout":
                                 $messageTitle = "Logout successful";
                                 $message = "You've been logged out. Hope to see you again soon.";
-                                $linkTo = "./";
+                                $linkTo = "../scripts/account_redirect.php";
                                 break;
                             case "poll_report_clear":
                                 $poll_id = $_GET["poll_id"];
                                 $message = "Reports have been cleared from the poll with ID: <b>$poll_id</b>.";
                                 $linkTo = "reports";
+                                break;
+                            case "poll_report":
+                                $poll_id = $_GET["poll_id"];
+                                $messageTitle = "Poll Reported";
+                                $message = "The poll (ID: <b>$poll_id</b>) has been reported.";
+                                $linkTo = "./";
                                 break;
                             }
                     } else {
