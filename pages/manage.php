@@ -21,14 +21,23 @@ include "../scripts/incl_db_handler.php";
 if (isset($_SESSION["username"])){
     // Unpack username session variable (escaping, to prevent SQL injection) and
     // store it in the $username variable for later use in queries.
-    $username = mysqli_real_escape_string($dbConn, $_SESSION["username"]);
+    if (isset($_GET["all-polls"])){
+        if ($_SESSION["isAdmin"]){
+            $usernameCondition = "";
+        } else {
+            header("location: ../pages/info?error=no_admin");
+        }
+    } else {
+        $username = mysqli_real_escape_string($dbConn, $_SESSION["username"]);
+        $usernameCondition = "AND users.username = \"$username\"";
+    }
 
     // Using the provided $username in a SQL database query to find polls
     // that the user is linked to.
     $dbQuery = "SELECT polls.poll_id, polls.title, polls.mult_choice,
     SUM(options.votes) AS total_votes, users.forename FROM polls, options, users
     WHERE polls.poll_id = options.poll_id AND users.username = polls.username
-    AND users.username = \"$username\" GROUP BY poll_id
+    $usernameCondition GROUP BY poll_id
     HAVING COUNT(polls.poll_id) >= 1;";
 
     // Execute the above query, and store the result in $dbQueryResult.
