@@ -192,7 +192,104 @@ elseif (isset($_POST["poll_manage_view"])){
 elseif (isset($_POST["poll_manage_edit"])){
     $poll_id = $_POST["radio_poll_manage"];
     header("location: ../pages/edit?poll_id=$poll_id");
+}
 
+elseif (isset($_POST["poll_edit_submit"])){
+    // Unpack the Title field (escaping, to prevent SQL injection) and store it
+    // in the $title variable use in the database INSERT query.
+    $title = mysqli_real_escape_string($dbConn, $_POST["title"]);
+
+    // Unpack the Multiple choice field (converting it from boolean to 1 or 0)
+    // and store it in the $mult_choice variable use in the database INSERT query.
+    // The + is to convert the boolean value to its 0-1 integer equivalent value.
+    $mult_choice = +isset($_POST["mult_choice"]);
+
+    // Unpack the Username field (escaping, to prevent SQL injection), and store
+    // it in the $username variable for later use.
+    // Then checking if the username provided is in the users table of the
+    // database, or if it is an empty string, converts it to a NULL value for
+    // use in the database INSERT query.
+    $username = mysqli_real_escape_string($dbConn, $_POST["username"]);
+    if ($username == ""){
+        $username = "NULL";
+    } else {
+        $dbUsernameCheck = "SELECT * FROM users WHERE username = \"$username\";";
+        $dbUsernameCheck_Result = mysqli_query($dbConn, $dbUsernameCheck);
+        $dbUsernameCheck_RowsReturned = mysqli_num_rows($dbUsernameCheck_Result);
+        if ($dbUsernameCheck_RowsReturned === 1) {
+            $username = "\"$username\"";
+        } else {
+            header("location: ../pages/info?error=poll_create--invalid_username");
+        }
+    }
+
+    // Using the above variables to prepare the database INSERT query string for
+    // the polls table.
+    $dbPollsQuery = "INSERT INTO polls (title, mult_choice, username) VALUES
+        (\"$title\",$mult_choice,$username);";
+
+    // Executing the above query.
+    mysqli_query($dbConn, $dbPollsQuery);
+
+    // Checking for any returned errors from executing the above query,
+    // directing users to an error page if there was an error, and continuing
+    // with execution if not.
+    if (mysqli_error($dbConn)){
+        header("location: ../pages/info?error=poll_create");
+    } else {
+        // If the query executed successfully, the newly created poll_id is
+        // retrieved for use in the INSERT query for the options table.
+        $poll_id = mysqli_real_escape_string($dbConn, $_POST["opt"]);
+
+        // Unpack the Option fields, and store them in an array called $options
+        // for later use.
+        // Then check if each option actually contains data; if it is an empty
+        // string, converts it to a NULL value for use in the database query.
+        // Then appends these options into to a string so that it can be used in
+        // the VALUES section of the database query.
+        $options = array_map(null,$_POST["opt"]);
+
+        // Checks if the form data is "malformed", e.g. a user fills out option
+        // fields 1, 2, 4, and 5, but not 3. (see ongoing testing entry no. 2)
+        $malformed = FALSE;
+        $emptyFieldFound = FALSE;
+        for ($x = 0; $x <= 9; $x++) {
+            if (!$options[$x]){
+                $emptyFieldFound = TRUE;
+            }
+            elseif (($options[$x]) and $emptyFieldFound){
+                $malformed = TRUE;
+            }
+        }
+
+        if ($malformed){
+            header("location: ../pages/info?error=poll_edit--malformed");
+        } else {
+            $i = 0;
+            $dbOptionsQueries = "";
+            foreach($options as $option){
+                $i++;
+                $escaped_option = mysqli_real_escape_string($dbConn, $option);
+                $dbOptionsQueries .= "UPDATE options
+                SET option_text = $escaped_option
+                WHERE poll_id = $poll_id AND option_no = $i;";
+            }
+            echo $dbOptionsQueries;
+            die();
+            $option_query_string = rtrim($option_query_string,",");
+
+            // Executing the above query.
+            mysqli_query($dbConn, $dbOptionsQueries);
+
+            // Checking for any returned errors from executing the above query, and
+            // directing users to a success / error page accordingly.
+            if (mysqli_error($dbConn)){
+                header("location: ../pages/info?error=poll_create");
+            } else {
+                header("location: ../pages/info?success=poll_create&poll_id=$poll_id");
+            }
+        }
+    }
 }
 
 elseif (isset($_POST["poll_manage_delete"])){
@@ -243,7 +340,30 @@ elseif (isset($_POST["delete_poll_submit"])) {
     }
 }
 
-else if (isset($_POST["user_change_password_submit"])){
+elseif (isset($_POST["delete_account_submit"])) {
+    $username = $_SESSION["username"];
+    $confirm = $_POST["delete_account_confirm"];
+    if ($confirm) {
+        $dbQuery = "DELETE FROM users WHERE username = \"$username\";";
+        mysqli_query($dbConn, $dbQuery);
+        if (mysqli_error($dbConn) or mysqli_affected_rows($dbConn) !== 1) {
+            // TODO: create related info page
+            header("location: ../pages/info?error=account_delete&username=$username");
+            echo mysqli_error($dbConn);
+        } else {
+            include "logout.php";
+            header("location: ../pages/info?success=account_delete&username=$username");
+        }
+    } else {
+        header("location: ../pages/info?error=account_delete--no_confirm&username=$username");
+    }
+}
+
+elseif (isset($_POST["delete_poll_cancel"])){
+    header("location: ../pages/manage");
+}
+
+elseif (isset($_POST["user_change_password_submit"])){
     if (isset($_SESSION["username"])){
         $username = $_SESSION["username"];
         $new_password = $_POST["new_password"];
