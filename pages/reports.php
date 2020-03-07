@@ -61,9 +61,9 @@ if (isset($_SESSION["isAdmin"])){
 ?>
                     </table>
                     <table>
-                        <td><input type="submit" name="poll_report_view" value="View poll"></td>
+                        <td><input type="submit" name="poll_report_view" value="View"></td>
                         <td><input type="submit" class="secondary" name="poll_report_clear" value="Clear reports"></td>
-                        <td><input type="submit" class="tertiary" name="poll_report_delete" value="Delete poll"></td>
+                        <td><input type="submit" class="tertiary" name="poll_report_delete" value="Delete"></td>
                     </form>
                 </div>
             </div>

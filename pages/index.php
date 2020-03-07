@@ -18,24 +18,24 @@
             <br>
             <!-- Links and descriptions of features -->
             <div class="card-container">
-                <div class="card welcome-card">
+                <div class="card option-card">
                     <h3>Join a poll</h3>
                     <p>Give your in opinion in an existing poll, if you know the ID.</p>
                     <a class="action primary" href="join" title="Participate in an existing poll">Join Poll</a>
                 </div>
-                <div class="card welcome-card">
+                <div class="card option-card">
                     <h3>Create a poll</h3>
                     <p>Create a poll to gather insight on a question from others.</p>
                     <a class="action primary" href="create" title="Make a new poll">Create Poll</a>
                 </div>
             </div>
             <div class="card-container">
-                <div class="card welcome-card" >
+                <div class="card option-card" >
                     <h3>About PollSense</h3>
                     <p>Find out more about this website, and how to contact the developer.</p>
                     <a class="action secondary" href="about" title="Go to the About page">About</a>
                 </div>
-                <div class="card welcome-card" >
+                <div class="card option-card" >
                     <h3>Sign&nbsp;Up&nbsp;/ Log&nbsp;In</h3>
                     <p>Use an account to see all of your polls in one place, and edit them.</p>
 

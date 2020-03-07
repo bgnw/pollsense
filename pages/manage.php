@@ -82,9 +82,9 @@ if (isset($_SESSION["username"])){
 
                     </table>
                     <table class="actions">
-                        <td><input type="submit" name="poll_manage_view" value="View poll"></td>
-                        <td><input type="submit" class="secondary" name="poll_manage_edit" value="Edit poll"></td>
-                        <td><input type="submit" class="tertiary" name="poll_manage_delete" value="Delete poll"></td>
+                        <td><input type="submit" name="poll_manage_view" value="View"></td>
+                        <td><input type="submit" class="secondary" name="poll_manage_edit" value="Edit"></td>
+                        <td><input type="submit" class="tertiary" name="poll_manage_delete" value="Delete"></td>
                     </table>
                 </div>
             </div>

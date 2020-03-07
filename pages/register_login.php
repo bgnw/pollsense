@@ -33,6 +33,7 @@ if (isset($_SESSION["username"])){
                 <div class="card">
                     <!-- PHP form to log into a user account -->
                     <form name="user_login" action="../scripts/form_handler.php" method="post">
+                        <a style="display:inline;position:absolute;top:12px;right:30px;width:50px;" class="action secondary" onclick="showUsers()">+</a>
                         <h2>Existing Users</h2>
                         <div>
                             <input type="text" name="username" maxlength="64" placeholder="Username" required autofocus>
@@ -44,28 +45,12 @@ if (isset($_SESSION["username"])){
             </div>
 
             <!-- TEMP START -->
-            <div class="card" style="position:absolute;right:350px;width:20% !important;text-align:center;">
-            <h3>Dev Note - Sample Users</h3>
-            <table style="width:100%;">
-                <th>Username</th>
-                <th>Password</th>
-                <tr>
-                    <td>admin</td>
-                    <td style="font-family:monospace">7SxgFf29N2rJxuZB</td>
-                </tr>
-                <tr>
-                    <td>alice.adams</td>
-                    <td style="font-family:monospace">AYXi6sooWjNc0ZVU</td>
-                </tr>
-                <tr>
-                    <td>bob.bennett</td>
-                    <td style="font-family:monospace">dCQi6Nzo1p7FLj1o</td>
-                </tr>
-                <tr>
-                    <td>charlie.cook</td>
-                    <td style="font-family:monospace">vVQuuR2IdpV9NFgU</td>
-                </tr>
-            </table>
+            <div style="width:200px;position:absolute;top:160px;right:10px;background-color:rgba(0,0,0,0.7);display:none;" id="sample-users" class="card"><br><br>
+                <h4 style="color:white;">Sample Users</h4><br><br>
+                <a class="action tertiary" onclick="fillUser('admin')">admin</a><br><br><br>
+                <a class="action tertiary" onclick="fillUser('alice.adams')">alice.adams</a><br><br><br>
+                <a class="action tertiary" onclick="fillUser('bob.bennett')">bob.bennett</a><br><br><br>
+                <a class="action tertiary" onclick="fillUser('charlie.cook')">charlie.cook</a><br><br>
             </div>
             <!-- TEMP END -->
 

@@ -16,6 +16,7 @@ body {
     background-size: cover;
     font-size: 12pt;
     height: 100%;
+    margin-bottom: 40px;
 }
 
 /* Navigation bar and button styles */
@@ -24,12 +25,68 @@ nav {
     background-color: #24252a;
     display: flex;
     float: left;
-    padding: 30px 10%;
+    padding: 20px 10%;
     position: fixed;
     top: 0;
     white-space: nowrap;
     width: 100%;
-    z-index: 9;
+    z-index: 1;
+}
+
+#navbar-desktop {
+    display: inline-flex;
+}
+
+#navbar-mobile-show {
+    display: none;
+    padding-bottom: 14px;
+    /* border-radius: 40px; */
+}
+
+#navbar-mobile-hide {
+    color: white;
+    position: absolute;
+    font-size: 30pt;
+    top: 35px;
+    right: 55px;
+}
+
+#navbar-mobile-overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    background-color: #24252a;
+    overflow-x: hidden;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#navbar-mobile-container {
+    width: 250px;
+}
+
+#navbar-mobile-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#navbar-mobile-content a {
+    margin-bottom: 25px;
+    font-size: 25pt;
+    display: block;
+    transition: 0.3s;
+}
+
+#navbar-mobile-content .action {
+    border-radius: 30px;
 }
 
 nav+.content {
@@ -116,6 +173,7 @@ nav+.content {
     display: flex;
     justify-content: center;
     text-align: center;
+    align-content: center;
     position: relative;
     clear: both;
 }
@@ -144,7 +202,7 @@ nav+.content {
     padding: 25px 0 0;
 }
 
-.card:not(.welcome-card) .action, input[type="submit"]{
+.card:not(.option-card) .action, input[type="submit"]{
     width: 100%;
     font-weight: 500;
     margin-top: 30px;
@@ -154,7 +212,7 @@ nav+.content {
     width: 32% !important;
 }
 
-.welcome-card .action{
+.option-card .action{
     position: absolute;
     bottom: 12px;
     left: 12px;
@@ -180,11 +238,11 @@ label[for="mult_choice"], input[name="mult_choice"]{
     margin: 20px 0;
 }
 
-.welcome-card {
-    width: 18%;
+.option-card {
+    width: 300px;
 }
 
-.welcome-card p {
+.option-card p {
     vertical-align: middle;
     padding-bottom: 45px;
 }
@@ -262,7 +320,6 @@ form table td:nth-child(3){
     text-decoration: underline;
 }
 
-/* Footer styles */
 footer{
     position: fixed;
     left: 0;
@@ -272,19 +329,47 @@ footer{
     background-color: #24252a;
     font-size: 9pt;
     height: 30px;
-    padding:8px;
+    padding: 8px;
     text-align: right;
+    height: auto;
+    margin-top: 40px;
 }
 
 /* Responsive/mobile design */
-@media only screen and (max-width:950px) {
-    .content,nav,footer {
-        filter: opacity(0%)
+@media only screen and (max-width:990px) {
+    body {
+        zoom: 90%;
     }
-    body{
-        background-image: url(../assets/mobilebg.png);
-        background-repeat: repeat;
+}
+
+@media only screen and (max-width:870px) {
+    body {
+        zoom: 80%;
     }
+    #navbar-desktop {
+        display: none;
+    }
+    #navbar-mobile-show {
+        display: block;
+    }
+    .option-card{
+        width: 50%;
+    }
+    .card:not("#index"):not("#user_options") {
+        width: 95%;
+    }
+    .card-container:not("#index"):not("#user_options"){
+        flex-direction: column;
+        align-items: center;
+    }
+}
 
-
+@media only screen and (max-width:425px) {
+    .card {
+        width: 95%;
+    }
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
 }
