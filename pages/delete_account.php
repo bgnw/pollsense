@@ -7,9 +7,21 @@
 </head>
 
 <?php
-if (!isset($_SESSION["username"])){
-header("location: ../pages/info?error=no_login");
-}
+    // Redirect to an error page if user is not logged in.
+    if (!isset($_SESSION["username"]) || !isset($_SESSION["isAdmin"])){
+        header("location: ../pages/info?error=no_login");
+        exit;
+    }
+    elseif (isset($_GET["username"])){
+        if ($_SESSION["isAdmin"]){
+            $targetUsername = $_GET["username"];
+        } else {
+            header("location: ../pages/info?error=no_login");
+            exit;
+        }
+    } else {
+        $targetUsername = $_SESSION["username"];
+    }
 ?>
 
 <body id="delete_account">

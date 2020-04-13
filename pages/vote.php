@@ -68,11 +68,10 @@ if (isset($_GET["poll_id"])){
                 $i++;
             }
         }
-    } else {
-        throw new Exception();
     }
-} catch (Exception $e) {
-    header("location: ../pages/info?error=poll_vote");
+} else {
+    header("location: ../pages/info?error=no_poll_id");
+    exit;
 }
 ?>
                 </table>

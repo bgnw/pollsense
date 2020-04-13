@@ -155,6 +155,11 @@ nav+.content {
     font-weight: 700;
 }
 
+.blue-link {
+    color: #0645AD;
+    text-decoration: underline;
+}
+
 .vl {
     border-left: 1px solid grey;
     height: 20px;
@@ -178,6 +183,10 @@ nav+.content {
     clear: both;
 }
 
+.card-container:not(.card:not(form)) {
+    align-items: center;
+}
+
 .card {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
@@ -190,7 +199,7 @@ nav+.content {
     text-align: center;
     vertical-align: top;
     align-content: center !important;
-    width: 40%;
+    width: 500px;
 }
 
 /* This handles all the css for the form*/
@@ -206,6 +215,12 @@ nav+.content {
     width: 100%;
     font-weight: 500;
     margin-top: 30px;
+}
+
+input[type="submit"]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .multiple-submits{
@@ -251,17 +266,12 @@ label[for="mult_choice"], input[name="mult_choice"]{
     padding-bottom: 10px;
 }
 
-.hidden{
-    display: none;
+.card.large {
+    width: 80%;
 }
 
 input[name="poll_vote"]{
     text-align: left;
-}
-
-.card > input[name="user_register"],
-.card > input[name="user_login"]{
-    height: 400px;
 }
 
 :focus {
@@ -275,12 +285,33 @@ textarea:focus {
     background-color: #f7f7f7;
 }
 
-form table{
+form table {
     width: 100%;
 }
 
-form table td{
+form table td {
     padding: 5px;
+}
+
+.large-table,
+.large-table th,
+.large-table td
+{
+    vertical-align: middle;
+    text-align: left !important;
+    padding: 5px;
+    border-bottom: 0.5px solid #888;
+    border-collapse: collapse;
+    height: 30px;
+}
+
+.large-table th{
+    background-color: #aaa;
+}
+
+.large-table td:nth-child(1){
+    padding-left: 15px;
+    padding-bottom: 10px;
 }
 
 /* one item */
@@ -356,20 +387,26 @@ footer{
         width: 50%;
     }
     .card:not("#index"):not("#user_options") {
-        width: 95%;
+        width: 80%;
     }
     .card-container:not("#index"):not("#user_options"){
         flex-direction: column;
-        align-items: center;
+    }
+    .card.large {
+        width: 100%;
+
     }
 }
 
-@media only screen and (max-width:425px) {
+@media only screen and (max-width:600px) {
     .card {
-        width: 95%;
+        width: 100%;
     }
     .card-container {
         flex-direction: column;
         align-items: center;
+    }
+    .card.large {
+        overflow-x: scroll;
     }
 }

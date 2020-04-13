@@ -1,193 +1,231 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
-        <?php include "../scripts/incl_head.php";?>
-        <title>PollSense &rsaquo; Info</title>
-    </head>
+<html lang="en">
+<head>
+    <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
+    <?php include "../scripts/incl_head.php";?>
+    <title>PollSense &rsaquo; Info</title>
+</head>
 
-    <body id="info">
-        <!-- Navigation bar -->
-        <?php include "../scripts/incl_navbar.php";?>
+<body id="info">
+    <!-- Navigation bar -->
+    <?php include "../scripts/incl_navbar.php";?>
 
-        <!-- Main content -->
-        <div class="content">
-            <div class="card-container">
-                <div class="card">
-                    <div class="infoMessage">
+    <!-- Main content -->
+    <div class="content">
+    <div class="card-container">
+    <div class="card">
+        <div class="infoMessage">
+        <?php
+        $message = "";
+        $linkTo = "./";
+        $buttonLabel = "OK";
 
-                    <?php
-                    $message = "";
+        // Display relevant error messages, based on the GET variable provided.
+        if (isset($_GET["error"])) {
+            $error = $_GET["error"];
+            $tabTitle = "Error";
+            $messageTitle = "Uh oh!";
+            $buttonLabel = "Try again";
+            switch ($error) {
+                case "account_delete--no_confirm":
+                    $messageTitle = "Account not deleted";
+                    $username = $_GET["username"];
+                    $message = "The account with username <i>$username</i> wasn't deleted, as you did not check the confirmation box.";
+                    $linkTo = "javascript:history.back()";
+                break;
+                case "database":
+                    $messageTitle = "Database error";
+                    $message = "A database error occured while processing your request, sorry.";
+                    $linkTo = "javascript:history.back()";
+                    $buttonLabel = "Go back";
+                break;
+                case "manage_polls--no_polls":
+                    $messageTitle = "No polls";
+                    $message = "You don't have any polls connected to your account. Create one, and it'll display here!";
+                    $linkTo = "create";
+                    $buttonLabel = "Create a poll";
+                break;
+                case "new_admin--username_exists":
+                // 'Falling through' to the next case as the messages are identical.
+                case "user_register--username_exists":
+                    $messageTitle = "Username in use";
+                    $username = $_GET["username"];
+                    $message = "The username <i>$username</i> is already in use, please choose another.";
+                    $linkTo = "javascript:history.back()";
+                break;
+                case "no_admin":
+                    $messageTitle = "Admins only";
+                    $message = "You must be an admin to perform this action.";
                     $linkTo = "./";
-                    $buttonLabel = "Back to homepage";
+                    $buttonLabel = "OK";
+                break;
+                case "no_login":
+                    $messageTitle = "Not logged in";
+                    $message = "You must be logged in to perform this action.";
+                    $linkTo = "register_login";
+                    $buttonLabel = "Register or Log-in";
+                break;
+                case "no_poll_id":
+                    $messageTitle = "No poll ID";
+                    $message = "No poll ID was provided.";
+                    $linkTo = "javascript:history.back()";
+                break;
+                case "poll_create":
+                    $message = "Something went wrong while creating your poll, sorry.";
+                    $linkTo = "javascript:history.back()";
+                break;
+                case "poll_create--invalid_username":
+                // 'Falling through' to the next case as the messages are identical.
+                case "poll_edit--invalid_username":
+                    $messageTitle = "Invalid username";
+                    $message = "The owner username you provided is invalid. Please use another,
+                                or leave the field blank.";
+                    $linkTo = "javascript:history.back()";
+                break;
+                case "poll_delete--no_confirm":
+                    $messageTitle = "Poll not deleted";
+                    $poll_id = $_GET["poll_id"];
+                    $message = "The poll with ID <i>$poll_id</i> wasn't deleted,
+                                as you did not check the confirmation box.";
+                    $linkTo = "javascript:history.back()";
+                break;
+                case "poll_delete--not_owner":
+                    $messageTitle = "Not owner";
+                    $poll_id = $_GET["poll_id"];
+                    $message = "You are not the owner of the poll with ID <i>$poll_id</i> so you
+                                cannot delete it.";
+                    $linkTo = "./";
+                    $buttonLabel = "OK";
+                break;
+                case "poll_edit":
+                    $message = "Something went wrong updating your poll changes, sorry.";
+                    $linkTo = "javascript:history.back()";
+                break;
+                case "reports--no_polls":
+                    $messageTitle = "No polls";
+                    $message = "There are no reported polls at the moment - horray!";
+                    $linkTo = "javascript:history.back()";
+                    $buttonLabel = "Go back";
+                break;
+                case "unrecognised_form":
+                    $messageTitle = "Unrecognised form";
+                    $message = "Something went wrong while trying to process your form, sorry.";
+                    $linkTo = "javascript:history.back()";
+                    $buttonLabel = "Go back";
+                break;
+                case "user_login--invalid_credentials":
+                    $messageTitle = "Invalid credentials";
+                    $message = "The username/password combination you provided was invalid.";
+                    $linkTo = "javascript:history.back()";
+                break;
+                default:
+                    $message = "Something went wrong while processing your request, sorry.";
+                    $linkTo = "javascript:history.back()";
+                    $buttonLabel = "Go back";
+            }
+        }
 
-                    if (isset($_GET["error"])) {
-                        $error = $_GET["error"];
-                        $tabTitle = "Error";
-                        $messageTitle = "Uh oh!";
-                        $buttonLabel = "Try again";
-                        switch ($error) {
-                            case "no_login":
-                                $messageTitle = "Not loggged in";
-                                $message = "You must be logged in to perform this action.";
-                                $linkTo = "../scripts/account_redirect.php";
-                                $buttonLabel = "Log In or Register";
-                                break;
-                            case "no_admin":
-                                $messageTitle = "Not admin";
-                                $message = "You must be an admin to perform this action.";
-                                $linkTo = "./";
-                                $buttonLabel = "OK";
-                                break;
-                            case "user_register":
-                                $message = "Something went wrong whilst creating your account, sorry.";
-                                $linkTo = "../scripts/account_redirect.php";
-                                break;
-                            case "user_register--username_exists":
-                                $username = $_GET["username"];
-                                $message = "Unfortunately, the username <b>$username</b> is already in use.<br>Please try another username.";
-                                $linkTo = "../scripts/account_redirect.php";
-                                break;
-                            case "poll_vote":
-                                $message = "We couldn't find anything that matched that Poll ID, sorry.";
-                                $linkTo = "join";
-                                break;
-                            case "poll_vote--db_error":
-                                $poll_id = $_GET["poll_id"];
-                                $message = "We couldn't record your poll vote at this time, sorry.";
-                                $buttonLabel = "View the poll";
-                                $linkTo = "vote?poll_id=$poll_id";
-                                break;
-                            case "poll_report":
-                                $message = "Something went wrong while reporting the poll, sorry.";
-                                $linkTo = "join";
-                                break;
-                            case "manage":
-                                $message = "We couldn't load your poll management page, sorry.";
-                                $linkTo = "../scripts/account_redirect.php";
-                                break;
-                            case "manage--no_polls":
-                                $message = "You don't have any polls connected to your account.<br><a class=\"inline-link\" href=\"create\">Try creating one now!</a>";
-                                $linkTo = "user_options";
-                                $buttonLabel = "Back to menu";
-                                break;
-                            case "user_login--db_error":
-                                $message = "A database error occurred, so we couldn't log you in at this time. Sorry.";
-                                $linkTo = "../scripts/account_redirect.php";
-                                break;
-                            case "user_login--invalid_credentials":
-                                $message = "The username / password combination you provided was not valid.";
-                                $linkTo = "../scripts/account_redirect.php";
-                                break;
-                            case "poll_create":
-                                $message = "Something went wrong whilst creating your poll, sorry.";
-                                $linkTo = "create";
-                                break;
-                            case "poll_create--invalid_username":
-                                $message = "The username you provided is not valid.<br>Please use another username, or leave the field blank.";
-                                $linkTo = "create";
-                                break;
-                            case "poll_create--malformed":
-                                $message = "It looks like you missed out an option field in the middle of other options.";
-                                $linkTo = "create";
-                                break;
-                            case "poll_delete":
-                                $poll_id = $_GET["poll_id"];
-                                $message = "We couldn't delete your poll with ID: <b>$poll_id</b> at this time. Sorry.";
-                                $linkTo = "manage";
-                                break;
-                            case "poll_delete--not_owner":
-                                $poll_id = $_GET["poll_id"];
-                                $messageTitle = "Not owner";
-                                $message = "You are not the owner of the poll with ID: <b>$poll_id</b>, or it may not exist.";
-                                $linkTo = "manage";
-                                $buttonLabel = "OK";
-                                break;
-                            case "poll_delete--no_confirm":
-
-                                $messageTitle = "Not confirmed";
-                                $message = "We didn't delete your poll with ID: <b>$poll_id</b>, as you did not confirm you wanted to (by checking the checkbox).";
-                                $linkTo = "manage";
-                                break;
-                            case "user_change_password":
-                                $message = "Something went wrong whilst changing your password.<br>Your password has <b>not</b> been changed!";
-                                $linkTo = "change_password";
-                                break;
-                            case "poll_report_clear":
-                                $poll_id = $_GET["poll_id"];
-                                $message = "Something went wrong while clearing the reports from the poll with ID: <b>$poll_id</b>, sorry.";
-                                $linkTo = "reports";
-                                break;
-                            case "reports--no_polls":
-                                $messageTitle = "No reports";
-                                $message = "There are no reports to display at this time.";
-                                $linkTo = "user_options";
-                                $buttonLabel = "Back";
-                                break;
-
-                        }
-
-                    } elseif (isset($_GET["success"])) {
-                        $success = $_GET["success"];
-                        $tabTitle = "Success";
-                        $messageTitle = "Success!";
-                        $buttonLabel = "OK";
-                        switch ($success) {
-                            case "user_register":
-                                $username = $_GET["username"];
-                                $message = "Your account was successfully created!<br>You can now log in using your username, <b>$username</b>.";
-                                $linkTo = "../scripts/account_redirect.php";
-                                $buttonLabel = "Log in now";
-                                break;
-                            case "poll_create":
-                                $poll_id = $_GET["poll_id"];
-                                $message = "Your poll was successfully created!<br>The Poll ID is: <b>$poll_id</b>.<br>Share this ID with others to get their opinions!";
-                                $linkTo = "vote?poll_id=$poll_id";
-                                $buttonLabel = "View this poll";
-                                break;
-                            case "poll_delete":
-                                $poll_id = $_GET["poll_id"];
-                                $message = "Your poll with ID: <b>$poll_id</b> has been successfully deleted.";
-                                $linkTo = "manage";
-                                break;
-                            case "poll_vote":
-                                $poll_id = $_GET["poll_id"];
-                                $message = "Thank you for voting!<br>Your vote has been successfully recorded.";
-                                $buttonLabel = "View the poll";
-                                $linkTo = "vote?poll_id=$poll_id";
-                                break;
-                            case "user_change_password":
-                                $message = "Your account password has been successfully changed.<br>You have been logged out because of this.";
-                                $linkTo = "../scripts/account_redirect.php";
-                                break;
-                            case "logout":
-                                $messageTitle = "Logout successful";
-                                $message = "You've been logged out. Hope to see you again soon.";
-                                $linkTo = "../scripts/account_redirect.php";
-                                break;
-                            case "poll_report_clear":
-                                $poll_id = $_GET["poll_id"];
-                                $message = "Reports have been cleared from the poll with ID: <b>$poll_id</b>.";
-                                $linkTo = "reports";
-                                break;
-                            case "poll_report":
-                                $poll_id = $_GET["poll_id"];
-                                $messageTitle = "Poll Reported";
-                                $message = "The poll (ID: <b>$poll_id</b>) has been reported.";
-                                $linkTo = "./";
-                                break;
-                            }
-                    } else {
-                        header("location: ./");
-                    }
-                    echo "<script type=\"text/javascript\">document.title = \"PollSense › $tabTitle\"</script>";
-                    echo "<h2>$messageTitle</h2>
-                    <p>$message</p>
-                    <a class=\"action primary\" href=\"$linkTo\">$buttonLabel</a>";
-                    ?>
-                    </div>
-                </div>
-            </div>
+        // Display relevant success messages, based on the GET variable provided.
+        elseif (isset($_GET["success"])) {
+            $success = $_GET["success"];
+            $tabTitle = "Success";
+            $messageTitle = "Success";
+            $buttonLabel = "OK";
+            switch ($success) {
+                case "poll_create";
+                    $messageTitle = "Poll create";
+                    $poll_id = $_GET["poll_id"];
+                    // Provide the user with a link to their poll so they can share it with others.
+                    $link = "http://".$_SERVER['HTTP_HOST']."/pollsense/pages/vote?poll_id=$poll_id";
+                    $message = "Your poll was successfully created!<br>The Poll
+                                ID is: <b>$poll_id</b>.<br>Share this link with others to
+                                get their opinions:<br>
+                                <a class=\"blue-link\" href=\"$link\">$link</p>";
+                    $linkTo = "vote?poll_id=$poll_id";
+                    $buttonLabel = "View this poll";
+                    break;
+                break;
+                case "user_register";
+                    $messageTitle = "Account created";
+                    $username = $_GET["username"];
+                    $message = "Your account was successfully created!<br>
+                    You can now log in using your username, <i>$username</i>.";
+                    $linkTo = "../scripts/account_redirect.php";
+                    $buttonLabel = "Log in";
+                    break;
+                break;
+                case "new_admin";
+                    $messageTitle = "Admin account created";
+                    $username = $_GET["username"];
+                    $message = "A new admin account with the username <i>$username</i> has been
+                                successfully created.";
+                    $linkTo = "admin_options";
+                    $buttonLabel = "Back to admin options";
+                break;
+                case "poll_vote";
+                    $poll_id = $_GET["poll_id"];
+                    $messageTitle = "Vote recorded";
+                    $message = "Thanks for voting! Your vote has been successfully recorded.";
+                    $linkTo = "vote?poll_id=$poll_id";
+                    $buttonLabel = "View the poll again";
+                break;
+                case "poll_report";
+                    $poll_id = $_GET["poll_id"];
+                    $messageTitle = "Report logged";
+                    $message = "Your report on poll ID <i>$poll_id</i> has been logged. An admin
+                                will deal with it soon.";
+                    $linkTo = "./";
+                    $buttonLabel = "Go to homepage";
+                break;
+                case "poll_edit";
+                    $poll_id = $_GET["poll_id"];
+                    $messageTitle = "Changes updated";
+                    $message = "The changes to your poll have been applied.";
+                    $linkTo = "vote?poll_id=$poll_id";
+                    $buttonLabel = "View the poll";
+                break;
+                case "poll_delete";
+                    $poll_id = $_GET["poll_id"];
+                    $messageTitle = "Poll deleted";
+                    $message = "The poll with ID <i>$poll_id</i> has been successfully deleted.";
+                    $linkTo = "user_options";
+                    $buttonLabel = "Back to user options";
+                break;
+                case "account_delete";
+                    $username = $_GET["username"];
+                    $messageTitle = "Account deleted";
+                    $message = "The user account with username <i>$username</i> has been
+                                successfully deleted.";
+                break;
+                case "user_change_password";
+                    $messageTitle = "Password changed";
+                    $message = "The account password has been successfully changed.";
+                break;
+                case "poll_report_clear";
+                    $poll_id = $_GET["poll_id"];
+                    $messageTitle = "Reports cleared";
+                    $message = "Reports for the poll with ID <i>$poll_id</i> have been cleared.";
+                break;
+                case "logout";
+                    $messageTitle = "Logout successful";
+                    $message = "You've been logged out. Hope to see you again soon!";
+                    $linkTo = "javascript:history.back()";
+                    $buttonLabel = "Go back";
+                break;
+                default:
+                    $message = "The action was successful.";
+                    $linkTo = "./";
+            }
+        } else {
+            header("location: ./");
+        }
+        // Change the tab title to error/success accordingly and display message on webpage.
+        echo "<script type=\"text/javascript\">
+        document.title = \"PollSense › $tabTitle\"</script>
+        <h2>$messageTitle</h2>
+        <p>$message</p>
+        <a class=\"action primary\" href=\"$linkTo\">$buttonLabel</a>";
+        ?>
         </div>
     </div>
     </div>
