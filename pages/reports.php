@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
-        <?php include "../scripts/incl_head.php";?>
-        <title>PollSense &rsaquo; Reports</title>
-    </head>
+<html lang="en">
+<head>
+    <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
+    <?php include "../scripts/incl_head.php";?>
+    <title>PollSense &rsaquo; Reports</title>
+</head>
 
-    <body id="reports">
-        <!-- Navigation bar -->
-        <?php include "../scripts/incl_navbar.php";?>
+<body id="reports">
+    <!-- Navigation bar -->
+    <?php include "../scripts/incl_navbar.php";?>
 
-        <!-- Main content -->
-        <div class="content">
-            <div class="card-container">
-                <div class="card">
+    <!-- Main content -->
+    <div class="content">
+        <div class="card-container">
+            <div class="large card">
 
 <?php
 include "../scripts/incl_db_handler.php";

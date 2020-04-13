@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
-        <?php include "../scripts/incl_head.php";?>
-        <title>PollSense &rsaquo; Change Password</title>
-    </head>
+<html lang="en">
 
-    <body id="change_password">
-        <!-- Navigation bar -->
-        <?php include "../scripts/incl_navbar.php";?>
+<head>
+    <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
+    <?php include "../scripts/incl_head.php";?>
+    <title>PollSense &rsaquo; Change Password</title>
+</head>
 
         <!-- Main content -->
         <div class="content">

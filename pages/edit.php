@@ -1,23 +1,11 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
-        <?php include "../scripts/incl_head.php";?>
-        <title>PollSense &rsaquo; Edit Poll</title>
-    </head>
+<html lang="en">
+<head>
+    <!-- All headers (i.e. links to CSS stylesheets, JS scripts, etc.) -->
+    <?php include "../scripts/incl_head.php";?>
+    <title>PollSense &rsaquo; Edit Poll</title>
+</head>
 
-    <body id="edit">
-        <!-- Navigation bar -->
-        <?php include "../scripts/incl_navbar.php";?>
-
-        <!-- Main content -->
-        <div class="content">
-            <div class="card-container">
-                <div class="card">
-                    <form name="poll_edit" action="../scripts/form_handler.php"  method="POST">
-                    <input type="hidden" name="poll_id" value="$poll_id">
-                    <table><tr>
-                    <td><label for="title">Title:</label></td>
 <?php
 include "../scripts/incl_db_handler.php";
 if (isset($_GET["poll_id"])){
@@ -35,8 +23,16 @@ if (isset($_GET["poll_id"])){
         $dbOptionsQuery = "SELECT options.option_no, options.option_text,
         options.votes FROM options, polls
         WHERE polls.poll_id = options.poll_id AND polls.poll_id = $poll_id;";
+<body id="edit">
+    <!-- Navigation bar -->
+    <?php include "../scripts/incl_navbar.php";?>
 
         $dbOptionsQueryResult = mysqli_query($dbConn, $dbOptionsQuery);
+    <!-- Main content -->
+    <div class="content">
+        <div class="card-container">
+            <div class="card">
+                <form action="../scripts/form_handler.php"  method="POST">
 
         if (mysqli_error($dbConn)){
             header("location: ../pages/info?error=poll_edit");
@@ -77,13 +73,13 @@ if (isset($_GET["poll_id"])){
     header("location: ../pages/info?error=poll_edit");
 }
 ?>
-                    </table>
-                    <input type="submit" name="poll_edit_submit" value="Submit changes">
-                    </form>
-                </div>
+                </table>
+                <input type="submit" name="poll_edit_submit" value="Submit changes">
+                </form>
             </div>
         </div>
-        <!-- Footer -->
-        <?php include "../scripts/incl_footer.php";?>
-    </body>
+    </div>
+    <!-- Footer -->
+    <?php include "../scripts/incl_footer.php";?>
+</body>
 </html>

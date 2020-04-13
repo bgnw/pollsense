@@ -189,7 +189,10 @@
                 </div>
             </div>
         </div>
-        <!-- Footer -->
-        <?php include "../scripts/incl_footer.php";?>
-    </body>
+    </div>
+    </div>
+    </div>
+    <!-- Footer -->
+    <?php include "../scripts/incl_footer.php";?>
+</body>
 </html>
