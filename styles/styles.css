@@ -1,7 +1,9 @@
-/* Font import */
+/**** ALL STYLES FOR POLLSENSE ****/
+
+/* Font import (Montserrat) from Google Fonts */
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap);
 
-/* Global styles */
+/*** Global styles ***/
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,6 +11,7 @@
     font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+/*** Body styles ***/
 body {
     background-color: #b7bec5;
     background-image: url(../assets/background.jpg);
@@ -19,7 +22,7 @@ body {
     margin-bottom: 40px;
 }
 
-/* Navigation bar and button styles */
+/*** Navigation bar styles (including responsive/mobile/tablet design) ***/
 nav {
     align-items: center;
     background-color: #24252a;
@@ -89,31 +92,39 @@ nav {
     border-radius: 30px;
 }
 
-nav+.content {
-    margin: 3%;
-    padding-top: 110px;
-    text-align: justify;
-}
-
 .logo {
     justify-content: flex-start;
     margin-right: auto;
     padding: 5px;
 }
 
-.action, input[type=submit], .admin-msg {
+nav+.content {
+    margin: 3%;
+    padding-top: 110px;
+    text-align: justify;
+}
+
+.navbar-links {
+    display: flex;
+    list-style: none;
+}
+
+.navbar-links li {
+    padding: 0 20px;
+}
+
+.current {
+    font-weight: 700;
+}
+
+/*** Button/Submit styles ***/
+.action, input[type=submit] {
     border: none;
     border-radius: 20px;
     padding: 11px 20px;
     font-size: 12pt;
     cursor: pointer;
     display: inline;
-}
-
-.admin-msg {
-    position: relative;
-    color: white;
-    cursor: default;
 }
 
 .cancel {
@@ -123,6 +134,11 @@ nav+.content {
 .danger {
     background-color: #e56147 !important;
     font-weight: 700 !important;
+}
+
+.action, a, input[type="submit"]{
+    color: #edf0f1;
+    text-decoration: none;
 }
 
 .primary, input[type=submit] {
@@ -137,43 +153,21 @@ nav+.content {
     background-color: #735aff !important;
 }
 
-.navbar-links {
-    display: flex;
-    list-style: none;
-}
-
-.action, a, input[type="submit"]{
-    color: #edf0f1;
-    text-decoration: none;
-}
-
-.navbar-links li {
-    padding: 0 20px;
-}
-
-.current {
-    font-weight: 700;
-}
-
-.blue-link {
-    color: #0645AD;
-    text-decoration: underline;
-}
-
+/*** Vertical line/seperator ***/
 .vl {
     border-left: 1px solid grey;
     height: 20px;
     margin: 0 10px;
 }
 
-/* Main content styles */
+/*** Main content heading styles ***/
 .content h1 ,.content h2, .content h3 {
     line-height: 1.5;
     text-align: center;
     padding: 20px 0;
 }
 
-/* Action / form card styles */
+/*** Form and Card styles ***/
 .card-container {
     display: flex;
     justify-content: center;
@@ -202,7 +196,6 @@ nav+.content {
     width: 500px;
 }
 
-/* This handles all the css for the form*/
 .card form, .card .infoMessage{
     height: 100%;
     display: flex;
@@ -223,11 +216,7 @@ input[type="submit"]{
     appearance: none;
 }
 
-.multiple-submits{
-    width: 32% !important;
-}
-
-.option-card .action{
+.option-card .action {
     position: absolute;
     bottom: 12px;
     left: 12px;
@@ -245,11 +234,11 @@ input[type="text"], input[type="password"] {
     width: 100%;
 }
 
-input[type="radio"]{
+input[type="radio"] {
     margin-top: 12px;
 }
 
-label[for="mult_choice"], input[name="mult_choice"]{
+label[for="mult_choice"], input[name="mult_choice"] {
     margin: 20px 0;
 }
 
@@ -268,10 +257,6 @@ label[for="mult_choice"], input[name="mult_choice"]{
 
 .card.large {
     width: 80%;
-}
-
-input[name="poll_vote"]{
-    text-align: left;
 }
 
 :focus {
@@ -314,43 +299,47 @@ form table td {
     padding-bottom: 10px;
 }
 
-/* one item */
-table.actions td:first-child:nth-last-child(1) {
-/* -or- li:only-child { */
-    width: 100%;
-}
+/* Changes the width of action buttons below a form, so that they are all on one line. */
+    table.actions td:first-child:nth-last-child(1) {
+    /* -or- li:only-child { */
+        width: 100%;
+    }
 
-/* two items */
-table.actions td:first-child:nth-last-child(2),
-table.actions td:first-child:nth-last-child(2) ~ td {
-    width: 50%;
-}
+    table.actions td:first-child:nth-last-child(2),
+    table.actions td:first-child:nth-last-child(2) ~ td {
+        width: 50%;
+    }
 
-/* three items */
-table.actions td:first-child:nth-last-child(3),
-table.actions td:first-child:nth-last-child(3) ~ td {
-    width: 33.33%;
-}
+    table.actions td:first-child:nth-last-child(3),
+    table.actions td:first-child:nth-last-child(3) ~ td {
+        width: 33.33%;
+    }
 
-/* four items */
-table.actions td:first-child:nth-last-child(4),
-table.actions td:first-child:nth-last-child(4) ~ td {
-    width: 25%;
-}
+    table.actions td:first-child:nth-last-child(4),
+    table.actions td:first-child:nth-last-child(4) ~ td {
+        width: 25%;
+    }
 
-form table td:nth-child(2){
-    text-align: left;
-}
+    form table td:nth-child(2){
+        text-align: left;
+    }
 
-form table td:nth-child(3){
-    text-align: right;
-}
+    form table td:nth-child(3){
+        text-align: right;
+    }
 
+/*** Link styles ***/
 .inline-link{
     color: #0645ad;
     text-decoration: underline;
 }
 
+.blue-link {
+    color: #0645AD;
+    text-decoration: underline;
+}
+
+/*** Footer styles ***/
 footer{
     position: fixed;
     left: 0;
@@ -366,13 +355,16 @@ footer{
     margin-top: 40px;
 }
 
-/* Responsive/mobile design */
+/*** Responsive/mobile/tablet designs ***/
+
+/* Reduces scale of content */
 @media only screen and (max-width:990px) {
     body {
         zoom: 90%;
     }
 }
 
+/* Reduces scale more, switches navbar to mobile version, increases width of cards. */
 @media only screen and (max-width:870px) {
     body {
         zoom: 80%;
@@ -398,6 +390,7 @@ footer{
     }
 }
 
+/* Makes all cards full width, and vertically laid out. */
 @media only screen and (max-width:600px) {
     .card {
         width: 100%;
