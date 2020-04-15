@@ -8,7 +8,7 @@
 
 <?php
     // Redirect to an error page if no poll ID was provided.
-    if (!isset($_GET["poll_id"])){
+    if (!isset($_GET["poll_id"])) {
         header("location: ../pages/info?error=no_poll_id");
         exit;
     }
@@ -25,6 +25,7 @@
             <div class="card">
                 <form action="../scripts/form_handler.php"  method="POST">
 <?php
+// Include database connection.
 include "../scripts/incl_db_handler.php";
 /* Unpack Poll ID field (escaping, to prevent SQL injection) and
 store it in the $poll_id variable use in the database SELECT query. */
@@ -35,12 +36,12 @@ echo "<input type=\"hidden\" name=\"poll_id\" value=\"$poll_id\">
 <table><tr>
 <td><label for=\"title\">Title:</label></td>";
 
-// Using the above poll ID to retrieve the poll data from the database.
+// Using the poll ID provided to retrieve the poll data from the database.
 $dbq_polls = "SELECT title, mult_choice, username FROM polls WHERE polls.poll_id = $poll_id;";
 $dbq_polls_result = mysqli_query($dbConn, $dbq_polls);
 
 // Check for errors and redirect to an error page if any occurred.
-if ((mysqli_error($dbConn)) or (mysqli_num_rows($dbq_polls_result) !== 1)){
+if ((mysqli_error($dbConn)) or (mysqli_num_rows($dbq_polls_result) !== 1)) {
     header("location: ../pages/info?error=database");
     exit;
 }
@@ -51,7 +52,7 @@ elseif (mysqli_num_rows($dbq_polls_result) === 1) {
     if ($_SESSION["username"] !== $dbq_polls_result_row["username"]) {
         /* If the usernames do not match, check if the current user session is
         an admin. If not, redirect to an error page. */
-        if (!$_SESSION["isAdmin"]){
+        if (!$_SESSION["isAdmin"]) {
             header("location: ../pages/info?error=poll_edit--invalid_username");
             exit;
         }
@@ -65,7 +66,7 @@ WHERE polls.poll_id = options.poll_id AND polls.poll_id = $poll_id;";
 $dbq_options_result = mysqli_query($dbConn, $dbq_options);
 
 // Check for errors and redirect to an error page if any occurred.
-if (mysqli_error($dbConn)){
+if (mysqli_error($dbConn)) {
     header("location: ../pages/info?error=database");
     exit;
 }
@@ -81,7 +82,7 @@ echo "
 
 /* Decide wether to display a checked or unchecked checkbox for the
 multiple choice option. */
-if ($dbq_polls_result_row["mult_choice"]){
+if ($dbq_polls_result_row["mult_choice"]) {
     $checkboxType = "checked";
 } else {
     $checkboxType = "";
@@ -90,12 +91,15 @@ echo "<tr>
 <td><label for=\"mult_choice\">Multiple choice: </label></td>
 <td><input type=\"checkbox\" name=\"mult_choice\" $checkboxType></td>";
 
-// Iterate through all results and display the text in a textbox.
+// Iterate through all results and display each option in a textbox.
 $i = 0;
-while ($dbq_options_result_row){
-    $plural = "";
-    if ($dbq_options_result_row["votes"] != 1){
+while ($dbq_options_result_row) {
+
+    // Determine wether to use "X vote" or "X votes".
+    if ($dbq_options_result_row["votes"] != 1) {
         $plural = "s";
+    } else {
+        $plural = "";
     }
 
     echo "<tr>
@@ -107,7 +111,7 @@ while ($dbq_options_result_row){
     $i++;
 }
 ?>
-                </table>
+                    </table>
                 <input type="submit" name="poll_edit_submit" value="Submit changes">
                 </form>
             </div>

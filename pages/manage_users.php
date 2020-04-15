@@ -8,12 +8,12 @@
 
 <?php
 // Redirect to an error message if the user is not logged in.
-if (!isset($_SESSION["isAdmin"])){
+if (!isset($_SESSION["isAdmin"])) {
     header("location: info?error=no_login");
     exit;
 }
 // Redirect to an error message if a non-admin tries to access this page.
-elseif (!$_SESSION["isAdmin"]){
+elseif (!$_SESSION["isAdmin"]) {
     header("location: info?error=no_admin");
     exit;
 }
@@ -59,7 +59,7 @@ method=\"POST\">
 </tr>
 </thead>
 <tbody>";
-while ($dbq_users_result_row){
+while ($dbq_users_result_row) {
     echo "<tr>
         <td><input type=\"radio\" value=\"".
         $dbq_users_result_row["username"]."\" required name=\"radio_user_manage\"></td>
@@ -67,7 +67,7 @@ while ($dbq_users_result_row){
         <td><p>".$dbq_users_result_row["surname"]."</p></td>
         <td><p>".$dbq_users_result_row["username"]."</p></td>
         <td><p>";
-        if ($dbq_users_result_row["admin"]){
+        if ($dbq_users_result_row["admin"]) {
             echo "Yes";
         } else {
             echo "No";

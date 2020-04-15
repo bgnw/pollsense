@@ -3,7 +3,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
 
-<!-- User message, while processing form. -->
+<!-- User message, to show while processing form. -->
 <title>PollSense &rsaquo; Processing...</title>
 <h2 style="font-family: sans-serif">Processing your query...<br></h2>
 <p><i>You should be redirected from this page within a few seconds.<br>
@@ -25,7 +25,7 @@ if (isset($_POST["poll_create_submit"])) {
 
     /* Perform a check against the database to see if the provided owner username
     exists in the database, redirect to an error page if not. */
-    if ($username === ""){
+    if ($username === "") {
         $username = "NULL";
     } else {
         $dbq_usernameCheck = "SELECT * FROM users WHERE username = \"$username\";";
@@ -54,7 +54,7 @@ if (isset($_POST["poll_create_submit"])) {
     /* Checking for any returned errors from executing the above query,
     directing users to an error page if there was an error, and continuing
     with execution if not. */
-    if (mysqli_error($dbConn)){
+    if (mysqli_error($dbConn)) {
         header("location: ../pages/info?error=database");
         exit;
     }
@@ -71,7 +71,7 @@ if (isset($_POST["poll_create_submit"])) {
     the VALUES section of the database INSERT query. */
     $i = 0;
     $option_query_string = "";
-    foreach($_POST["opt"] as $option){
+    foreach($_POST["opt"] as $option) {
         if ($option !== "") {
             $escaped_option = mysqli_real_escape_string($dbConn, $option);
             $option_query_string .= "($poll_id, $i,\"$escaped_option\"),";
@@ -95,7 +95,7 @@ if (isset($_POST["poll_create_submit"])) {
 
     /* Checking for any returned errors from executing the above query, and
     directing users to a success / error page accordingly. */
-    if (mysqli_error($dbConn)){
+    if (mysqli_error($dbConn)) {
         header("location: ../pages/info?error=database");
         exit;
     } else {
@@ -128,7 +128,7 @@ elseif (isset($_POST["user_register_submit"])) {
     if (mysqli_error($dbConn)) {
         /* If there was an error, checking if the error was that there a
         user account already exists with the provided username. */
-        if (strpos(mysqli_error($dbConn),"Duplicate entry") !== false){
+        if (strpos(mysqli_error($dbConn),"Duplicate entry") !== false) {
             header("location: ../pages/info?error=user_register--username_exists&username=$username");
             exit;
         } else {
@@ -142,7 +142,7 @@ elseif (isset($_POST["user_register_submit"])) {
 }
 
 // Check if the sent form is the "New Users" form (from register_login.php).
-elseif (isset($_POST["new_admin_submit"])){
+elseif (isset($_POST["new_admin_submit"])) {
     /* Escape the form data to prevent SQL injection and store in respective
     variables. */
     $forename = mysqli_real_escape_string($dbConn, $_POST["forename"]);
@@ -165,7 +165,7 @@ elseif (isset($_POST["new_admin_submit"])){
     if (mysqli_error($dbConn)) {
         /* If there was an error, checking if the error was that there a
         user account already exists with the provided username. */
-        if (strpos(mysqli_error($dbConn),"Duplicate entry") !== false){
+        if (strpos(mysqli_error($dbConn),"Duplicate entry") !== false) {
             header("location: ../pages/info?error=new_admin--username_exists&username=$username");
             exit;
         } else {
@@ -179,7 +179,7 @@ elseif (isset($_POST["new_admin_submit"])){
 }
 
 // Check if the sent form is the "Existing Users" form (from register_login.php).
-elseif (isset($_POST["user_login_submit"])){
+elseif (isset($_POST["user_login_submit"])) {
     /* Escape the form data to prevent SQL injection and store in respective
     variables. */
     $username = mysqli_real_escape_string($dbConn, $_POST["username"]);
@@ -277,14 +277,14 @@ elseif (isset($_POST["poll_manage_view"])) {
 }
 
 // Check if the user clicked "Edit" on the manage_polls.php page.
-elseif (isset($_POST["poll_manage_edit"])){
+elseif (isset($_POST["poll_manage_edit"])) {
     $poll_id = $_POST["radio_poll_manage"];
     header("location: ../pages/edit?poll_id=$poll_id");
     exit;
 }
 
 // Check if the sent form is the form on edit.php
-elseif (isset($_POST["poll_edit_submit"])){
+elseif (isset($_POST["poll_edit_submit"])) {
     /* Escape the form data to prevent SQL injection and store in respective
     variables.
     Note: When setting $mult_choice, the "+" before "isset" is used to convert
@@ -332,7 +332,7 @@ elseif (isset($_POST["poll_edit_submit"])){
     /* Checking for any returned errors from executing the above query,
     directing users to an error page if there was an error, and continuing
     with execution if not. */
-    if (mysqli_error($dbConn)){
+    if (mysqli_error($dbConn)) {
         header("location: ../pages/info?error=database");
         exit;
     }
@@ -345,7 +345,7 @@ elseif (isset($_POST["poll_edit_submit"])){
     the VALUES section of the database INSERT query. */
     $i = 0;
     $dbq_options = "";
-    foreach($_POST["opt"] as $option){
+    foreach($_POST["opt"] as $option) {
         if ($option !== "") {
             $escaped_option = mysqli_real_escape_string($dbConn, $option);
             $dbq_options .= "UPDATE options
@@ -365,7 +365,7 @@ elseif (isset($_POST["poll_edit_submit"])){
 
     /* Checking for any returned errors from executing the above queries, and
     directing users to a success / error page accordingly. */
-    if (mysqli_error($dbConn)){
+    if (mysqli_error($dbConn)) {
         header("location: ../pages/info?error=database");
         exit;
     } else {
@@ -375,13 +375,13 @@ elseif (isset($_POST["poll_edit_submit"])){
 }
 
 // Check if the user clicked "Delete" on the manage_polls.php page.
-elseif (isset($_POST["poll_manage_delete"])){
+elseif (isset($_POST["poll_manage_delete"])) {
     header("location: ../pages/delete_poll?poll_id=".$_POST["radio_poll_manage"]);
     exit;
 }
 
 // Check if the user clicked "Cancel" on the poll delete confirmation page.
-elseif (isset($_POST["delete_poll_cancel"])){
+elseif (isset($_POST["delete_poll_cancel"])) {
     header("location: ../pages/manage_polls");
     exit;
 }
@@ -414,7 +414,7 @@ elseif (isset($_POST["delete_poll_submit"])) {
 
         /* Check if the owner's username matches the username of the person
         currently logged in, or if the current user is an admin. */
-        if ($username === $owner || $_SESSION["isAdmin"]){
+        if ($username === $owner || $_SESSION["isAdmin"]) {
             /* Prepare and execute a DELETE query to remove the poll and its
             options (using the ON DELETE CASCATE property). */
             $dbQueryPolls = "DELETE FROM polls WHERE poll_id = $poll_id;";
@@ -472,13 +472,13 @@ elseif (isset($_POST["delete_account_submit"])) {
     }
 }
 
-elseif (isset($_POST["delete_account_cancel"])){
+elseif (isset($_POST["delete_account_cancel"])) {
     header("location: ../pages/user_options");
     exit;
 }
 
 // Check if the sent form is the form on change_password.php.
-elseif (isset($_POST["user_change_password_submit"])){
+elseif (isset($_POST["user_change_password_submit"])) {
     // Store the target user's username, after escape.
     $username = mysqli_real_escape_string($dbConn, $_POST["username"]);
     // Escape new password from form and store in $new_password.
@@ -506,13 +506,14 @@ elseif (isset($_POST["user_change_password_submit"])){
     }
 }
 
-elseif (isset($_POST["poll_report_view"])){
+// Check if the (admin) user clicked "View poll" on the reports.php page.
+elseif (isset($_POST["poll_report_view"])) {
     header("location: ../pages/vote?poll_id=".$_POST["radio_reports"]);
     exit;
 }
 
 // Check if the (admin) user clicked "Clear reports" on the reports.php page.
-elseif (isset($_POST["poll_report_clear"])){
+elseif (isset($_POST["poll_report_clear"])) {
     // Get the selected poll ID.
     $poll_id = $_POST["radio_reports"];
     /* Prepare and execute a query to change the report count of the selected
@@ -530,26 +531,30 @@ elseif (isset($_POST["poll_report_clear"])){
     }
 }
 
-elseif (isset($_POST["poll_report_delete"])){
+// Check if the (admin) user clicked "Delete poll" on the reports.php page.
+elseif (isset($_POST["poll_report_delete"])) {
     header("location: ../pages/delete_poll?poll_id=".$_POST["radio_reports"]);
     exit;
 }
-
-elseif (isset($_POST["user_manage_view_polls"])){
+// Check if the (admin) user clicked "View polls" on the manage_users.php page.
+elseif (isset($_POST["user_manage_view_polls"])) {
     header("location: ../pages/manage_polls?username=".$_POST["radio_user_manage"]);
     exit;
 }
 
-elseif (isset($_POST["user_manage_change_password"])){
+// Check if the (admin) user clicked "Change password" on the manage_users.php page.
+elseif (isset($_POST["user_manage_change_password"])) {
     header("location: ../pages/change_password?username=".$_POST["radio_user_manage"]);
     exit;
 }
 
-elseif (isset($_POST["user_manage_delete_account"])){
+// Check if the (admin) user clicked "Delete account" on the manage_users.php page.
+elseif (isset($_POST["user_manage_delete_account"])) {
     header("location: ../pages/delete_account?username=".$_POST["radio_user_manage"]);
     exit;
 }
 
+// If none of the above conditions were met, redirect the user to an error page.
 else {
     header("location: ../pages/info?error=unrecognised_form");
     exit;

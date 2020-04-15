@@ -216,10 +216,15 @@
                     $message = "The action was successful.";
                     $linkTo = "./";
             }
-        } else {
-            header("location: ./");
         }
-        // Change the tab title to error/success accordingly and display message on webpage.
+
+        // If neither an error or success parameter was given, redirect to homepage.
+        else {
+            header("location: ./");
+            exit
+        }
+
+        // Change the tab title to error/success accordingly and display message to user.
         echo "<script type=\"text/javascript\">
         document.title = \"PollSense › $tabTitle\"</script>
         <h2>$messageTitle</h2>

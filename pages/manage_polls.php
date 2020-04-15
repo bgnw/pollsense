@@ -15,7 +15,7 @@
     <div class="card-container">
 
 <?php
-if (isset($_GET["all-polls"])){
+if (isset($_GET["all-polls"])) {
     echo "<div class=\"large card\">";
 } else {
     echo "<div class=\"card\">";
@@ -24,14 +24,15 @@ if (isset($_GET["all-polls"])){
 include "../scripts/incl_db_handler.php";
 
 // Redirect user if they are not logged in.
-if (!isset($_SESSION["username"])){
+if (!isset($_SESSION["username"]) || !isset($_SESSION["isAdmin"])) {
     header("location: ../scripts/account_redirect.php");
     exit;
 }
 
-// Check if a username is provided in as a GET variable (for admin use only)
-if (isset($_GET["username"])){
-    if ($_SESSION["isAdmin"]){
+// Check if a username is provided as a GET variable (for admin use only)
+if (isset($_GET["username"])) {
+    // Verify admin status
+    if ($_SESSION["isAdmin"]) {
         $usernameCondition = "AND polls.username = \"".$_GET["username"]."\"";
     } else {
         header("location: ../pages/info?error=no_admin");
@@ -39,8 +40,10 @@ if (isset($_GET["username"])){
     }
 }
 
-elseif (isset($_GET["all-polls"])){
-    if ($_SESSION["isAdmin"]){
+// Check if the "all-polls" GET variable was sent (for admin use only)
+elseif (isset($_GET["all-polls"])) {
+    // Verify admin status
+    if ($_SESSION["isAdmin"]) {
         $usernameCondition = "";
     } else {
         header("location: ../pages/info?error=no_admin");
@@ -79,10 +82,10 @@ if (mysqli_error($dbConn)) {
 // Fetch the first poll result row, and store it in $dbq_polls_result_row.
 $dbq_polls_result_row = mysqli_fetch_assoc($dbq_polls_result);
 
-if (isset($_GET["all-polls"])){
+if (isset($_GET["all-polls"])) {
     $header = "All Polls";
 }
-elseif (isset($_GET["username"])){
+elseif (isset($_GET["username"])) {
     $header = $_GET["username"]."'s Polls";
 } else {
     $header = "Your Polls";
@@ -97,7 +100,7 @@ echo "<form action=\"../scripts/form_handler.php\" method=\"POST\">
     <th></th>
     <th>ID</th>
     <th>Title</th>";
-if (isset($_GET["all-polls"])){
+if (isset($_GET["all-polls"])) {
     echo "<th>Owner</th>";
 }
 echo "<th>Multiple Choice</th>
@@ -105,13 +108,13 @@ echo "<th>Multiple Choice</th>
 </tr>
 </thead>
 <tbody>";
-while ($dbq_polls_result_row){
+while ($dbq_polls_result_row) {
     echo "<tr>
         <td><input type=\"radio\" value=\"".
         $dbq_polls_result_row["poll_id"]."\" required name=\"radio_poll_manage\"></td>
         <td><p>".$dbq_polls_result_row["poll_id"]."</p></td>
         <td><p>".$dbq_polls_result_row["title"]."</p></td>";
-        if (isset($_GET["all-polls"])){
+        if (isset($_GET["all-polls"])) {
             echo "<td><p>";
             if ($dbq_polls_result_row["username"] == "") {
                 echo "<i>No owner</i>";
@@ -123,7 +126,7 @@ while ($dbq_polls_result_row){
             echo "</p></td>";
         }
 
-        if ($dbq_polls_result_row["mult_choice"]){
+        if ($dbq_polls_result_row["mult_choice"]) {
             echo "<td><p>Yes</p></td>";
         } else {
             echo "<td><p>No</p></td>";

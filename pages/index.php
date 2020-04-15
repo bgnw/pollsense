@@ -34,15 +34,15 @@
         <div class="card-container">
             <div class="card option-card" >
                 <h3>About PollSense</h3>
-                <p>Find out more about this website, and how to contact the developer.</p>
+                <p>Find out more about this website / project.</p>
                 <a class="action secondary" href="about"
                     title="Go to the About page">About</a>
             </div>
             <div class="card option-card" >
                 <h3>Account</h3>
-                <p>Register for or log into your account to access many more features.</p>
+                <p>An account gives you access to many more features.</p>
                 <a class="action secondary" href="../scripts/account_redirect.php"
-                    title="Make or log into an account">Account</a>
+                    title="Go to account">Account</a>
             </div>
         </div>
     </div>

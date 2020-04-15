@@ -8,20 +8,24 @@
 
 <?php
     // Redirect to an error page if user is not logged in.
-    if (!isset($_SESSION["username"]) || !isset($_SESSION["isAdmin"])){
+    if (!isset($_SESSION["username"]) || !isset($_SESSION["isAdmin"])) {
         header("location: ../pages/info?error=no_login");
         exit;
     }
-    elseif (isset($_GET["username"])){
-        if ($_SESSION["isAdmin"]){
+
+    // Initially set the target username as the current session's username.
+    $targetUsername = $_SESSION["username"];
+
+    /* If a username has been provided as a GET variable, check if the current
+    session is an admin, and if so, change the target username to the one
+    provided in the GET variable. Otherwise, redirect to an error page. */
+    elseif (isset($_GET["username"])) {
+        if ($_SESSION["isAdmin"]) {
             $targetUsername = $_GET["username"];
         } else {
             header("location: ../pages/info?error=no_login");
             exit;
         }
-    } else {
-        $targetUsername = $_SESSION["username"];
-    }
 ?>
 
 <body id="delete_account">
@@ -32,6 +36,7 @@
     <div class="content">
     <div class="card-container">
     <div class="card">
+        <!-- Form to confirm account deletion -->
         <form action="../scripts/form_handler.php" method="POST">
             <h2>Delete My Data</h2>
             <p>This will erase all account and poll data related to this account?

@@ -14,11 +14,12 @@
         exit;
     }
 
+    // Initially set the target username as the current session's username.
     $targetUsername = $_SESSION["username"];
 
     /* If a username has been provided as a GET variable, check if the current
     session is an admin, and if so, change the target username to the one
-    provided in the GET variable. */
+    provided in the GET variable. Otherwise, redirect to an error page. */
     if (isset($_GET["username"])) {
         if ($_SESSION["isAdmin"]) {
             $targetUsername = $_GET["username"];

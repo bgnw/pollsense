@@ -7,7 +7,7 @@
     <title>PollSense &rsaquo; User Options</title>
 </head>
 
-<?php if (!isset($_SESSION["username"])){
+<?php if (!isset($_SESSION["username"])) {
     header("location: ../pages/register_login");
 }?>
 
@@ -23,8 +23,9 @@
         <br>
         <!-- Links and descriptions of logged in features -->
         <div class="card-container">
-            <?php if (isset($_SESSION["isAdmin"])){
-                if ($_SESSION["isAdmin"]){
+            <!-- If the user is an admin, include a link to the admin options page. -->
+            <?php if (isset($_SESSION["isAdmin"])) {
+                if ($_SESSION["isAdmin"]) {
                     echo "
                     <div class=\"card option-card\">
                         <h3>Admin Controls</h3>

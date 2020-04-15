@@ -19,31 +19,41 @@
             <h2>Create a Poll</h2>
             <div>
                 <input type="text" name="title" style="font-weight:bold;"
-                    placeholder="Question" maxlength="1024" required autofocus>
+                    placeholder="Question" maxlength="512" required autofocus>
 
-                <input type="text" name="opt[0]" placeholder="Option 1" maxlength="1024" required>
+                <input type="text" name="opt[0]" placeholder="Option 1" maxlength="512" required>
+
                 <input type="text" name="opt[1]" onkeyup="show_opt(2)"
-                    placeholder="Option 2" maxlength="1024" required>
+                    placeholder="Option 2" maxlength="512" required>
+
                 <input type="text" name="opt[2]" style="display:none;" onkeyup="show_opt(3)"
-                    placeholder="Option 3, optional" maxlength="1024">
+                    placeholder="Option 3, optional" maxlength="512">
+
                 <input type="text" name="opt[3]" style="display:none;" onkeyup="show_opt(4)"
-                    placeholder="Option 4, optional" maxlength="1024">
+                    placeholder="Option 4, optional" maxlength="512">
+
                 <input type="text" name="opt[4]" style="display:none;" onkeyup="show_opt(5)"
-                    placeholder="Option 5, optional" maxlength="1024">
+                    placeholder="Option 5, optional" maxlength="512">
+
                 <input type="text" name="opt[5]" style="display:none;" onkeyup="show_opt(6)"
-                    placeholder="Option 6, optional" maxlength="1024">
+                    placeholder="Option 6, optional" maxlength="512">
+
                 <input type="text" name="opt[6]" style="display:none;" onkeyup="show_opt(7)"
-                    placeholder="Option 7, optional" maxlength="1024">
+                    placeholder="Option 7, optional" maxlength="512">
+
                 <input type="text" name="opt[7]" style="display:none;" onkeyup="show_opt(8)"
-                    placeholder="Option 8, optional" maxlength="1024">
+                    placeholder="Option 8, optional" maxlength="512">
+
                 <input type="text" name="opt[8]" style="display:none;" onkeyup="show_opt(9)"
-                    placeholder="Option 9, optional" maxlength="1024">
+                    placeholder="Option 9, optional" maxlength="512">
+
                 <input type="text" name="opt[9]" style="display:none;"
-                    placeholder="Option 10, optional" maxlength="1024">
+                    placeholder="Option 10, optional" maxlength="512">
 
                 <label for="mult_choice">Allow multiple choices? </label>
                 <input type="checkbox" name="mult_choice"
                     alt="Tick the box to allow multiple choices.">
+
                 <input type="text" name="username" maxlength="64"
                     placeholder="Owner username, optional"
                     <?php if (isset($_SESSION["username"])) {

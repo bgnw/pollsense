@@ -3,7 +3,7 @@
     <img class="logo" src="../assets/logo-with-text.png" alt="PollSense Logo" height="60px">
 </a>
 
-<!-- Script to make current page name bold -->
+<!-- Script to make current page name bold in navbar -->
 <?php
     $explode_result = explode("/", $_SERVER["REQUEST_URI"]);
     $current_page = end($explode_result);
@@ -15,7 +15,7 @@
     $account_class = "";
     $index_class = "";
 
-    switch ($current_page){
+    switch ($current_page) {
         // check if URL is just "/" (without any page name)
         case false:
             // "falling through" to the next case, as the action is identical
@@ -64,7 +64,7 @@
     echo "<a class=\"action secondary $account_class\" href=\"../scripts/account_redirect.php\"
         title=\"Go to account options\">Account</a>";
     // If user is logged in, show a log out button.
-    if (isset($_SESSION["username"])){
+    if (isset($_SESSION["username"])) {
         echo "\n<a class=\"action secondary\" href=\"../scripts/logout.php\"
             title=\"Log out of your account\">Log&nbsp;Out</a>";
     }
@@ -87,7 +87,7 @@
             <a class=\"$account_class\" href=\"../scripts/account_redirect.php\"
                 title=\"Go to account options\">Account</a>";
             // If user is logged in, show a log out option.
-            if (isset($_SESSION["username"])){
+            if (isset($_SESSION["username"])) {
                 echo "<a href=\"../scripts/logout.php\"
                     title=\"Log out of your account\">Log&nbsp;Out</a>";
             }
