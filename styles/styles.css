@@ -298,8 +298,7 @@ form table td {
 }
 
 /* Changes the width of action buttons below a form, so that they are all on one line. */
-    table.actions td:first-child:nth-last-child(1) {
-    /* -or- li:only-child { */
+    table.actions td:first-child:nth-last-child(1) {}
         width: 100%;
     }
 

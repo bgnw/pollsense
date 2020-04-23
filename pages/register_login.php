@@ -49,6 +49,13 @@
             </form>
         </div>
     </div>
+    <div class="card-container">
+        <div class="card">
+            <h2>Important notice</h2>
+            <p>Please note that passwords are currently stored as <b>plaintext</b>.
+                Do not use a password you use elsewhere!</p>
+        </div>
+    </div>
     </div>
     <!-- Footer -->
     <?php include "../scripts/incl_footer.php";?>

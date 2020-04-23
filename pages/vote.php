@@ -33,8 +33,14 @@ $pollsQuery = "SELECT poll_id, title, mult_choice FROM polls
 // Execute the query, redirect to an error message if any DB errors occur.
 $pollsQueryResult = mysqli_query($dbConn, $pollsQuery);
 if ((mysqli_error($dbConn)) or (mysqli_num_rows($pollsQueryResult) !== 1)) {
-    header("location: ../pages/info?error=database");
-    exit;
+    if  (mysqli_num_rows($pollsQueryResult) == 0) {
+        header("location: ../pages/info?error=poll_vote--does_not_exist");
+        exit;
+    }
+    else {
+        header("location: ../pages/info?error=database");
+        exit;
+    }
 } else {
     $optionsQuery = "SELECT options.option_no, options.option_text,
     options.votes FROM options, polls
@@ -74,7 +80,7 @@ if ((mysqli_error($dbConn)) or (mysqli_num_rows($pollsQueryResult) !== 1)) {
             $i++;
         }
     }
-
+}
 ?>
                 </table>
                 <table class="actions">

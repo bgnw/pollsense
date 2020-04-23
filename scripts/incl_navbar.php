@@ -1,6 +1,7 @@
 <nav>
 <a style="height:auto;" class="logo" href="./">
-    <img class="logo" src="../assets/logo-with-text.png" alt="PollSense Logo" height="60px">
+    <img class="logo" src="../assets/logo-with-text.png"
+     alt="PollSense Logo" height="60px">
 </a>
 
 <!-- Script to make current page name bold in navbar -->
@@ -71,6 +72,7 @@
     ?>
 </div>
 </div>
+
 
 <!-- Mobile navbar -->
 <button onclick="show_mobile_nav()" class="action primary" id="navbar-mobile-show">&#9776;</button>

@@ -30,7 +30,8 @@
                 case "account_delete--no_confirm":
                     $messageTitle = "Account not deleted";
                     $username = $_GET["username"];
-                    $message = "The account with username <i>$username</i> wasn't deleted, as you did not check the confirmation box.";
+                    $message = "The account with username <b>$username</b> wasn't deleted, as you did
+                                not check the confirmation box.";
                     $linkTo = "javascript:history.back()";
                 break;
                 case "database":
@@ -41,7 +42,9 @@
                 break;
                 case "manage_polls--no_polls":
                     $messageTitle = "No polls";
-                    $message = "You don't have any polls connected to your account. Create one, and it'll display here!";
+                    $message = "There aren't any polls connected to this account.<br>Create one,
+                                enter your username into the 'Owner username' box, and it'll
+                                display here!";
                     $linkTo = "create";
                     $buttonLabel = "Create a poll";
                 break;
@@ -50,7 +53,8 @@
                 case "user_register--username_exists":
                     $messageTitle = "Username in use";
                     $username = $_GET["username"];
-                    $message = "The username <i>$username</i> is already in use, please choose another.";
+                    $message = "The username <b>$username</b> is already in use, please choose
+                                another.";
                     $linkTo = "javascript:history.back()";
                 break;
                 case "no_admin":
@@ -85,14 +89,14 @@
                 case "poll_delete--no_confirm":
                     $messageTitle = "Poll not deleted";
                     $poll_id = $_GET["poll_id"];
-                    $message = "The poll with ID <i>$poll_id</i> wasn't deleted,
+                    $message = "The poll with ID <b>$poll_id</b> wasn't deleted,
                                 as you did not check the confirmation box.";
                     $linkTo = "javascript:history.back()";
                 break;
                 case "poll_delete--not_owner":
                     $messageTitle = "Not owner";
                     $poll_id = $_GET["poll_id"];
-                    $message = "You are not the owner of the poll with ID <i>$poll_id</i> so you
+                    $message = "You are not the owner of the poll with ID <b>$poll_id</b> so you
                                 cannot delete it.";
                     $linkTo = "./";
                     $buttonLabel = "OK";
@@ -100,6 +104,12 @@
                 case "poll_edit":
                     $message = "Something went wrong updating your poll changes, sorry.";
                     $linkTo = "javascript:history.back()";
+                break;
+                case "poll_vote--does_not_exist":
+                    $messageTitle = "Poll not available";
+                    $message = "This poll doesn't exist - it may have been deleted.";
+                    $linkTo = "javascript:history.back()";
+                    $buttonLabel = "Go back";
                 break;
                 case "reports--no_polls":
                     $messageTitle = "No polls";
@@ -133,7 +143,7 @@
             $buttonLabel = "OK";
             switch ($success) {
                 case "poll_create";
-                    $messageTitle = "Poll create";
+                    $messageTitle = "Poll created";
                     $poll_id = $_GET["poll_id"];
                     // Provide the user with a link to their poll so they can share it with others.
                     $link = "http://".$_SERVER['HTTP_HOST']."/pollsense/pages/vote?poll_id=$poll_id";
@@ -149,7 +159,7 @@
                     $messageTitle = "Account created";
                     $username = $_GET["username"];
                     $message = "Your account was successfully created!<br>
-                    You can now log in using your username, <i>$username</i>.";
+                    You can now log in using your username, <b>$username</b>.";
                     $linkTo = "../scripts/account_redirect.php";
                     $buttonLabel = "Log in";
                     break;
@@ -157,7 +167,7 @@
                 case "new_admin";
                     $messageTitle = "Admin account created";
                     $username = $_GET["username"];
-                    $message = "A new admin account with the username <i>$username</i> has been
+                    $message = "A new admin account with the username <b>$username</b> has been
                                 successfully created.";
                     $linkTo = "admin_options";
                     $buttonLabel = "Back to admin options";
@@ -172,7 +182,7 @@
                 case "poll_report";
                     $poll_id = $_GET["poll_id"];
                     $messageTitle = "Report logged";
-                    $message = "Your report on poll ID <i>$poll_id</i> has been logged. An admin
+                    $message = "Your report on poll ID <b>$poll_id</b> has been logged. An admin
                                 will deal with it soon.";
                     $linkTo = "./";
                     $buttonLabel = "Go to homepage";
@@ -187,14 +197,14 @@
                 case "poll_delete";
                     $poll_id = $_GET["poll_id"];
                     $messageTitle = "Poll deleted";
-                    $message = "The poll with ID <i>$poll_id</i> has been successfully deleted.";
+                    $message = "The poll with ID <b>$poll_id</b> has been successfully deleted.";
                     $linkTo = "user_options";
                     $buttonLabel = "Back to user options";
                 break;
                 case "account_delete";
                     $username = $_GET["username"];
                     $messageTitle = "Account deleted";
-                    $message = "The user account with username <i>$username</i> has been
+                    $message = "The user account with username <b>$username</b> has been
                                 successfully deleted.";
                 break;
                 case "user_change_password";
@@ -204,13 +214,13 @@
                 case "poll_report_clear";
                     $poll_id = $_GET["poll_id"];
                     $messageTitle = "Reports cleared";
-                    $message = "Reports for the poll with ID <i>$poll_id</i> have been cleared.";
+                    $message = "Reports for the poll with ID <b>$poll_id</b> have been cleared.";
                 break;
                 case "logout";
                     $messageTitle = "Logout successful";
                     $message = "You've been logged out. Hope to see you again soon!";
-                    $linkTo = "javascript:history.back()";
-                    $buttonLabel = "Go back";
+                    $linkTo = "../scripts/account_redirect";
+                    $buttonLabel = "Go to login page";
                 break;
                 default:
                     $message = "The action was successful.";
@@ -221,7 +231,7 @@
         // If neither an error or success parameter was given, redirect to homepage.
         else {
             header("location: ./");
-            exit
+            exit;
         }
 
         // Change the tab title to error/success accordingly and display message to user.

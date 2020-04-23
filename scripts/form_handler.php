@@ -34,13 +34,14 @@ if (isset($_POST["poll_create_submit"])) {
             header("location: ../pages/info?error=database");
             exit;
         }
-        elseif ($dbq_usernameCheck_result) !== 1) {
+        elseif (mysqli_num_rows($dbq_usernameCheck_result) !== 1) {
             header("location: ../pages/info?error=poll_create--invalid_username");
             exit;
         }
         else {
             mysqli_free_result($dbq_usernameCheck_result);
             $username = "\"$username\"";
+        }
     }
 
     /* Using the above variables to prepare the database INSERT query string for
@@ -253,7 +254,7 @@ elseif (isset($_POST["poll_vote_report"])) {
 
     /* Prepare database UPDATE query to increment number of reports on
     appropriate query by one. */
-    $dbq_report = "UPDATE polls SET reports = reports + 1 WHEnRE poll_id = $poll_id;";
+    $dbq_report = "UPDATE polls SET reports = reports + 1 WHERE poll_id = $poll_id;";
 
     // Execute the above query.
     mysqli_query($dbConn, $dbq_report);
@@ -382,7 +383,7 @@ elseif (isset($_POST["poll_manage_delete"])) {
 
 // Check if the user clicked "Cancel" on the poll delete confirmation page.
 elseif (isset($_POST["delete_poll_cancel"])) {
-    header("location: ../pages/manage_polls");
+    header("location: ../pages/user_options");
     exit;
 }
 
@@ -463,7 +464,7 @@ elseif (isset($_POST["delete_account_submit"])) {
                 session_unset();
                 session_destroy();
             }
-            header("location: ../pages/info?success=account_delete&username=$username");
+            header("location: ../pages/info?success=account_delete&username=$targetUsername");
             exit;
         }
     } else {

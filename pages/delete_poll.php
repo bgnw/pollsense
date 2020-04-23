@@ -33,7 +33,7 @@
             <h2>Delete Poll</h2>
             <p>This will erase the poll. (ID: <b><?php echo $_GET["poll_id"];?></b>)
                 <br>This action cannot be undone!</h3><br><br>
-            <input type="checkbox" id="delete_poll_confirm" name="delete_poll_confirm" required>
+            <input type="checkbox" id="delete_poll_confirm" name="delete_poll_confirm">
             <label for="delete_poll_confirm">I wish to delete this poll.</label><br>
             <table><div>
                 <td><input class="action cancel" type="submit" name="delete_poll_cancel"

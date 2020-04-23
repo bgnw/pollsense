@@ -13,9 +13,6 @@
         exit;
     }
 
-    // Initially set the target username as the current session's username.
-    $targetUsername = $_SESSION["username"];
-
     /* If a username has been provided as a GET variable, check if the current
     session is an admin, and if so, change the target username to the one
     provided in the GET variable. Otherwise, redirect to an error page. */
@@ -26,6 +23,13 @@
             header("location: ../pages/info?error=no_login");
             exit;
         }
+    }
+
+    else {
+        /* If neither of the above conditions are true, set the target username as the current
+        session's username. */
+        $targetUsername = $_SESSION["username"];
+    }
 ?>
 
 <body id="delete_account">
@@ -44,7 +48,7 @@
                 <br>This action cannot be undone!</h3><br><br>
             <?php echo "<input type=\"hidden\" value=\"$targetUsername\" name=\"targetUsername\">";?>
             <input type="checkbox" id="delete_account_confirm"
-                name="delete_account_confirm" required>
+                name="delete_account_confirm">
             <label for="delete_account_confirm">I wish to completely erase my account.</label><br>
             <table><div>
                 <td><input class="action cancel" type="submit"

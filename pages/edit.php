@@ -76,7 +76,8 @@ $dbq_options_result_row = mysqli_fetch_assoc($dbq_options_result);
 
 // Display the poll title.
 echo "
-<td><input type=\"text\" name=\"title\" value=\"".$dbq_polls_result_row["title"]."\"></td>
+<td><input type=\"text\" name=\"title\" value=\"".
+$dbq_polls_result_row["title"]."\" maxlength=\"512\"></td>
 </table>
 <table>";
 
@@ -102,9 +103,15 @@ while ($dbq_options_result_row) {
         $plural = "";
     }
 
+    if ($i === 0 || $i === 1){
+        $requiredOpt = "required";
+    } else {
+        $requiredOpt = "";
+    }
+
     echo "<tr>
         <td><input type=\"text\" name=\"opt[$i]\"
-        value=\"".$dbq_options_result_row["option_text"]."\"></td>
+        value=\"".$dbq_options_result_row["option_text"]."\" maxlength=\"512\" $requiredOpt></td>
         <td>".$dbq_options_result_row["votes"]." vote$plural</td>
     </tr>";
     $dbq_options_result_row = mysqli_fetch_assoc($dbq_options_result);
