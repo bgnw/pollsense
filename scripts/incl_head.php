@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Start session to give access to any session data -->
-    <?php session_start();?>
+    <?php if(!isset($_SESSION)) {session_start();}?>
 
     <!-- All favicon / bookmark resources -->
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">

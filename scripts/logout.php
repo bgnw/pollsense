@@ -1,6 +1,6 @@
 <?php
 // Delete all session data
-session_start();
+if(!isset($_SESSION)) {session_start();}
 session_unset();
 session_destroy();
 // Redirect to success message

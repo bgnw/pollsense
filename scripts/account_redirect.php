@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(!isset($_SESSION)) {session_start();}
 /* Check if user is logged in.
     - If logged in, redirect to user options.
     - If not logged in, redirect to register/login page. */

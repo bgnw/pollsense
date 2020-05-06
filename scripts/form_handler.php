@@ -11,7 +11,7 @@
 
 <?php
 include "incl_db_handler.php";
-session_start();
+if(!isset($_SESSION)) {session_start();}
 
 // Check if the sent form is the form on create.php.
 if (isset($_POST["poll_create_submit"])) {

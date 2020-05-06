@@ -2,3 +2,6 @@ RewriteEngine On
 
 # makes example.com/page.php to instead be example.com/page
 RewriteRule ^([^/\.]+)/?$ $1.php  [L,QSA]
+
+# TEMP: to display errors in webpages
+php_flag display_errors 1
