@@ -404,7 +404,6 @@ elseif (isset($_POST["delete_poll_submit"])) {
         /* If an error occurred while executing the query above, redirect the
         user to an error page. Otherwise, continue with execution. */
         if (mysqli_error($dbConn)) {
-            // TODO: create related info page
             mysqli_free_result($dbq_pollOwner_result);
             header("location: ../pages/info?error=database");
             exit;
@@ -427,7 +426,6 @@ elseif (isset($_POST["delete_poll_submit"])) {
                 exit;
             } else {
                 mysqli_free_result($dbq_pollOwner_result);
-                // TODO: create related info page
                 header("location: ../pages/info?success=poll_delete&poll_id=$poll_id");
                 exit;
             }
@@ -454,7 +452,6 @@ elseif (isset($_POST["delete_account_submit"])) {
         mysqli_query($dbConn, $dbQuery);
         // Check for errors and redirect to success/error pages accordingly.
         if (mysqli_error($dbConn) || mysqli_affected_rows($dbConn) !== 1) {
-            // TODO: create related info page
             header("location: ../pages/info?error=database");
             exit;
         } else {

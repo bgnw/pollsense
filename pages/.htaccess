@@ -1,4 +1,4 @@
 RewriteEngine On
 
-# makes example.com/page.php to instead be example.com/page
+# allows example.com/page.php to be example.com/page instead
 RewriteRule ^([^/\.]+)/?$ $1.php  [L,QSA]
